@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cotizador de Eventos - Sonido Euros Bolivia</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-[#fefae2] text-[#2d080a] antialiased min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Header Estático y Cuadrado -->
+        <header class="sticky top-0 z-50 bg-[#1a0405] border-b border-[#a4202e]/30 shadow-xl text-[#fefae2]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+                
+                <!-- Izquierda: Logotipo -->
+                <a href="index.html" class="flex items-center space-x-3 w-64">
+                    <img src="assets/img/logo Los euros_facturas.png" alt="Sonido Euros Logo" class="h-14 w-auto object-contain">
+                    <span class="text-xl font-extrabold tracking-wider hidden sm:inline">SONIDO <span class="text-[#a4202e]">EUROS</span></span>
+                </a>
+
+                <!-- Centro: Menú Principal -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="index.html" class="hover:text-[#e7b263] transition">Inicio</a>
+                    <a href="catalogo.html" class="hover:text-[#e7b263] transition">Catálogo</a>
+                    <a href="cotizador.html" class="text-[#e7b263] border-b-2 border-[#e7b263] pb-1 transition">Cotizador</a>
+                </nav>
+
+                <!-- Derecha: Contenedor Dinámico de Autenticación -->
+                <div id="auth-nav-container" class="flex items-center justify-end space-x-3 w-64">
+                    <!-- Contenido inyectado dinámicamente por auth.js -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenido del Cotizador -->
+        <main class="max-w-4xl mx-auto px-4 py-12">
+            <div class="bg-[#620f14] border border-[#a4202e]/50 rounded-2xl p-8 shadow-2xl text-[#fefae2]">
+                <h1 class="text-3xl font-black mb-2 text-center text-[#fefae2]">Configura Tu Cotización</h1>
+                <p class="text-center text-[#fefae2]/70 mb-8">Completa los detalles de fecha, ubicación y logística para tu evento en Bolivia.</p>
+
+                <form id="cotizador-form" onsubmit="event.preventDefault(); submitCotizacion();" class="space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Tipo de Evento</label>
+                            <select id="tipo_evento" class="w-full bg-[#2d080a] border border-[#a4202e] rounded-lg p-3 text-[#fefae2] focus:outline-none focus:border-[#e7b263]" required>
+                                <option value="Matrimonio" class="bg-[#2d080a] text-[#fefae2]">Matrimonio</option>
+                                <option value="Quinceañero" class="bg-[#2d080a] text-[#fefae2]">Quinceañero</option>
+                                <option value="Concierto / Fiesta" class="bg-[#2d080a] text-[#fefae2]">Concierto / Fiesta</option>
+                                <option value="Corporativo" class="bg-[#2d080a] text-[#fefae2]">Corporativo</option>
+                                <option value="Promoción" class="bg-[#2d080a] text-[#fefae2]">Promoción</option>
+                            </select>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Fecha del Evento</label>
+                            <input type="date" id="fecha_evento" class="w-full bg-[#2d080a] border border-[#a4202e] rounded-lg p-3 text-[#fefae2] focus:outline-none focus:border-[#e7b263]" required>
+                        </div>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Hora de Inicio</label>
+                            <input type="time" id="hora_inicio" class="w-full bg-[#2d080a] border border-[#a4202e] rounded-lg p-3 text-[#fefae2] focus:outline-none focus:border-[#e7b263]" required>
+                        </div>
+                        <div>
+                            <label class="block text-sm font-semibold mb-2">Departamento (Destino Logístico)</label>
+                            <select id="departamento" class="w-full bg-[#2d080a] border border-[#a4202e] rounded-lg p-3 text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                                <option value="Cochabamba" class="bg-[#2d080a] text-[#fefae2]">Cochabamba (Bs. 150)</option>
+                                <option value="La Paz" class="bg-[#2d080a] text-[#fefae2]">La Paz (Bs. 450)</option>
+                                <option value="Santa Cruz" class="bg-[#2d080a] text-[#fefae2]">Santa Cruz (Bs. 400)</option>
+                                <option value="Oruro" class="bg-[#2d080a] text-[#fefae2]">Oruro (Bs. 250)</option>
+                                <option value="Potosí" class="bg-[#2d080a] text-[#fefae2]">Potosí (Bs. 350)</option>
+                                <option value="Tarija" class="bg-[#2d080a] text-[#fefae2]">Tarija (Bs. 500)</option>
+                                <option value="Chuquisaca" class="bg-[#2d080a] text-[#fefae2]">Chuquisaca (Bs. 350)</option>
+                                <option value="Beni" class="bg-[#2d080a] text-[#fefae2]">Beni (Bs. 600)</option>
+                                <option value="Pando" class="bg-[#2d080a] text-[#fefae2]">Pando (Bs. 800)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-semibold mb-2">Dirección Exacta del Salón o Local</label>
+                        <input type="text" id="direccion_exacta" placeholder="Ej. Av. Ballivián #123, Salón de Eventos..." class="w-full bg-[#2d080a] border border-[#a4202e] rounded-lg p-3 text-[#fefae2] focus:outline-none focus:border-[#e7b263]" required>
+                    </div>
+
+                    <!-- Lista Dinámica de Equipos / Paquetes -->
+                    <div class="mb-6">
+                        <div class="flex justify-between items-center mb-3">
+                            <h2 class="text-xl font-bold text-[#e7b263]">Equipos Seleccionados en tu Cotización</h2>
+                            <a href="catalogo.html" class="text-xs text-[#e7b263] hover:underline font-semibold">+ Añadir más equipos</a>
+                        </div>
+                        <div id="cotizador-items-container" class="bg-[#2d080a] p-4 rounded-xl border border-[#a4202e]/30">
+                            <!-- Se llena dinámicamente con cotizador.js -->
+                        </div>
+                    </div>
+
+                    <!-- Resumen de Costos -->
+                    <div class="bg-[#2d080a] p-6 rounded-xl border border-[#a4202e]/30 space-y-3">
+                        <h3 class="text-lg font-bold text-[#e7b263] mb-4">Desglose Estimado</h3>
+                        <div class="flex justify-between text-sm">
+                            <span>Subtotal Equipos / Paquete:</span>
+                            <span id="resumen-subtotal" class="font-bold">Bs. 0.00</span>
+                        </div>
+                        <div class="flex justify-between text-sm">
+                            <span>Costo de Flete y Logística:</span>
+                            <span id="resumen-flete" class="font-bold">Bs. 150.00</span>
+                        </div>
+                        <div class="border-t border-[#a4202e]/40 pt-3 flex justify-between text-lg font-extrabold text-[#e7b263]">
+                            <span>Precio Estimado Total:</span>
+                            <span id="resumen-total">Bs. 150.00</span>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="w-full bg-[#e7b263] hover:bg-[#d49f50] text-[#2d080a] font-extrabold py-4 rounded-xl transition shadow-xl text-base tracking-wide cursor-pointer">
+                        Enviar Solicitud de Cotización
+                    </button>
+                </form>
+            </div>
+        </main>
+    </div>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/59172793459?text=Hola,%20necesito%20asesoría%20con%20una%20cotización%20para%20mi%20evento" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-sm transition-transform hover:scale-105">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+        <span class="hidden sm:inline">Hablar con el Experto</span>
+    </a>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a0405] border-t border-[#a4202e]/30 py-12 px-4 text-sm text-[#fefae2]/60">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <p class="font-bold text-[#fefae2]">SONIDO EUROS BOLIVIA</p>
+                <p class="mt-1">Servicios Profesionales de Sonido, Iluminación y Producción de Eventos.</p>
+            </div>
+            <p>&copy; 2026 Sonido Euros Bolivia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/cotizador.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

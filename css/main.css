@@ -1,0 +1,91 @@
+@import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
+
+:root {
+  --color-primary: #a4202e;     /* Rojo Carmesí */
+  --color-dark: #2d080a;        /* Fondo Vino Oscuro */
+  --color-dropdown: #620f14;    /* Vino Elegante */
+  --color-mustard: #e7b263;     /* Amarillo Mostaza */
+  --color-cream: #fefae2;       /* Crema / Marfil */
+}
+
+body {
+  background-color: var(--color-dark);
+  color: var(--color-cream);
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+/* Fondo claro/marfil (#fefae2) solicitado para Catálogo y Cotizador */
+.bg-cream-theme {
+  background-color: #fefae2;
+  color: #2d080a;
+}
+
+/* Colores personalizados */
+.bg-carmesi { background-color: #a4202e; }
+.text-carmesi { color: #a4202e; }
+.border-carmesi { border-color: #a4202e; }
+
+.bg-dark-custom { background-color: #2d080a; }
+.bg-dropdown-custom { background-color: #620f14; }
+.bg-mustard-custom { background-color: #e7b263; }
+.text-mustard-custom { color: #e7b263; }
+.text-cream-custom { color: #fefae2; }
+
+/* Botones interactivos */
+.btn-carmesi {
+  background-color: #a4202e;
+  color: #fefae2;
+  transition: all 0.3s ease;
+}
+.btn-carmesi:hover {
+  background-color: #831823;
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgba(164, 32, 46, 0.4);
+}
+
+.btn-outline-cream {
+  border: 2px solid #fefae2;
+  color: #fefae2;
+  transition: all 0.3s ease;
+}
+.btn-outline-cream:hover {
+  background-color: #fefae2;
+  color: #2d080a;
+  transform: translateY(-2px);
+}
+
+/* Tarjetas y Efectos */
+.card-hover {
+  transition: all 0.3s ease;
+  border: 1px solid rgba(164, 32, 46, 0.3);
+}
+.card-hover:hover {
+  transform: translateY(-5px);
+  border-color: #a4202e;
+  box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.5);
+}
+
+/* Botón Flotante de Contacto / WhatsApp */
+.whatsapp-float {
+  position: fixed;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25d366;
+  color: #ffffff;
+  border-radius: 50px;
+  padding: 12px 20px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: bold;
+  font-size: 14px;
+  z-index: 100;
+  transition: all 0.3s ease;
+  text-decoration: none;
+}
+.whatsapp-float:hover {
+  background-color: #20ba5a;
+  transform: scale(1.05);
+  color: #ffffff;
+}

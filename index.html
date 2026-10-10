@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sonido Euros Bolivia - Sonido, Iluminación y Estructuras Profesionales</title>
+    <!-- Favicon con el logotipo corporativo -->
+    <link rel="icon" type="image/png" href="assets/img/logo Los euros_facturas.png">
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-[#2d080a] text-[#fefae2] antialiased selection:bg-[#a4202e] selection:text-white">
+
+    <!-- Header Estático y Cuadrado -->
+    <header class="sticky top-0 z-50 bg-[#1a0405]/95 backdrop-blur-md border-b border-[#a4202e]/30 shadow-2xl">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+            
+            <!-- Izquierda: Logotipo con ancho fijo (w-64) -->
+            <a href="index.html" class="flex items-center space-x-3 w-64 group">
+                <img src="assets/img/logo Los euros_facturas.png" alt="Sonido Euros Logo" class="h-14 w-auto object-contain transition-transform group-hover:scale-105">
+                <span class="text-xl font-extrabold tracking-wider hidden sm:inline">SONIDO <span class="text-[#a4202e]">EUROS</span></span>
+            </a>
+
+            <!-- Centro: Menú Principal -->
+            <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                <a href="index.html" class="text-[#e7b263] border-b-2 border-[#e7b263] pb-1 transition">Inicio</a>
+                <a href="catalogo.html" class="text-[#fefae2]/80 hover:text-[#e7b263] transition">Catálogo</a>
+                <a href="cotizador.html" class="text-[#fefae2]/80 hover:text-[#e7b263] transition">Cotizador</a>
+            </nav>
+
+            <!-- Derecha: Contenedor Dinámico de Autenticación -->
+            <div id="auth-nav-container" class="flex items-center justify-end space-x-3 w-64">
+                <!-- Contenido inyectado dinámicamente por auth.js -->
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="relative py-28 md:py-36 px-4 bg-cover bg-center overflow-hidden" 
+             style="background-image: linear-gradient(rgba(45,8,10,0.88), rgba(45,8,10,0.92)), url('assets/img/eventos/concierto.jpg');">
+        <div class="max-w-5xl mx-auto text-center relative z-10">
+            <div class="inline-flex items-center space-x-2 bg-[#620f14]/80 backdrop-blur border border-[#a4202e] px-4 py-1.5 rounded-full text-xs font-bold tracking-wider text-[#e7b263] mb-6 shadow-lg">
+                <i data-lucide="sparkles" class="w-4 h-4 text-[#e7b263]"></i>
+                <span>PRODUCCIÓN INTEGRAL PARA EVENTOS EN BOLIVIA</span>
+            </div>
+            <h1 class="text-4xl sm:text-5xl md:text-6xl font-black tracking-tight leading-tight mb-6">
+                SONIDO, ILUMINACIÓN Y ESTRUCTURAS <span class="text-[#e7b263]">PROFESIONALES</span>
+            </h1>
+            <p class="text-lg md:text-xl text-[#fefae2]/80 max-w-3xl mx-auto mb-10 leading-relaxed font-light">
+                Nos esforzamos para que el impacto que quieres lograr en tu evento supere tus expectativas. Más de 10 años creando experiencias memorables en Bolivia.
+            </p>
+            <div class="flex flex-col sm:flex-row justify-center items-center gap-4">
+                <a href="cotizador.html" class="w-full sm:w-auto bg-[#a4202e] hover:bg-[#861924] px-8 py-4 rounded-xl font-bold text-base shadow-xl flex items-center justify-center space-x-3 transition transform hover:-translate-y-0.5">
+                    <span>Cotizar mi Evento Ahora</span>
+                    <i data-lucide="arrow-right" class="w-5 h-5"></i>
+                </a>
+                <a href="catalogo.html" class="w-full sm:w-auto border border-[#fefae2]/40 hover:bg-[#fefae2] hover:text-[#2d080a] px-8 py-4 rounded-xl font-bold text-base flex items-center justify-center space-x-2 transition">
+                    <i data-lucide="book-open" class="w-5 h-5"></i>
+                    <span>Ver Catálogo</span>
+                </a>
+            </div>
+        </div>
+        <!-- Botón Flotante de WhatsApp -->
+        <a href="https://wa.me/59170000000?text=Hola,%20quisiera%20consultar%20con%20el%20experto%20sobre%20una%20producción%20para%20mi%20evento" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-sm transition-transform hover:scale-105">
+            <i data-lucide="message-circle" class="w-5 h-5"></i>
+            <span class="hidden sm:inline">Hablar con el Experto</span>
+        </a>
+    </section>
+
+    <!-- Sección de Servicios / Categorías de Eventos Mejorada -->
+    <section id="eventos" class="py-24 px-4 bg-[#230608]">
+        <div class="max-w-7xl mx-auto">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 border-b border-[#a4202e]/20 pb-6">
+                <div>
+                    <span class="text-[#e7b263] font-bold text-xs tracking-[0.2em] uppercase bg-[#620f14]/50 px-3 py-1 rounded-md border border-[#a4202e]/30">Nuestros Servicios</span>
+                    <h2 class="text-3xl md:text-4xl font-extrabold text-[#fefae2] mt-3 tracking-tight">Categorías de Eventos</h2>
+                </div>
+                <a href="cotizador.html" class="mt-4 md:mt-0 text-[#e7b263] hover:text-[#fefae2] font-semibold text-sm flex items-center space-x-1 group transition">
+                    <span>Cotizar categoría específica</span>
+                    <i data-lucide="chevron-right" class="w-4 h-4 transition-transform group-hover:translate-x-1"></i>
+                </a>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Matrimonios -->
+                <div class="bg-[#2d080a] rounded-2xl overflow-hidden shadow-2xl border border-[#a4202e]/30 hover:border-[#e7b263]/60 transition-all duration-300 group flex flex-col">
+                    <div class="h-52 bg-cover bg-center relative overflow-hidden" style="background-image: url('assets/img/eventos/matrimonio.jpg');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2d080a] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-[#e7b263] text-[#2d080a] text-xs font-extrabold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">Producción Elegante</span>
+                        </div>
+                    </div>
+                    <div class="p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#fefae2] mb-3 group-hover:text-[#e7b263] transition-colors">Matrimonios</h3>
+                            <p class="text-[#fefae2]/70 text-sm leading-relaxed mb-6">Hacemos de tu día especial una experiencia inolvidable con la mejor producción sonora, luces cálidas y ambientación de alta gama.</p>
+                        </div>
+                        <a href="cotizador.html?tipo=Matrimonio" class="inline-flex items-center space-x-2 text-[#e7b263] hover:text-white text-sm font-bold pt-4 border-t border-[#a4202e]/20 transition">
+                            <span>Solicitar propuesta</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Quinceañeros -->
+                <div class="bg-[#2d080a] rounded-2xl overflow-hidden shadow-2xl border border-[#a4202e]/30 hover:border-[#e7b263]/60 transition-all duration-300 group flex flex-col">
+                    <div class="h-52 bg-cover bg-center relative overflow-hidden" style="background-image: url('assets/img/eventos/quince.jpg');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2d080a] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-[#e7b263] text-[#2d080a] text-xs font-extrabold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">Show Espectacular</span>
+                        </div>
+                    </div>
+                    <div class="p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#fefae2] mb-3 group-hover:text-[#e7b263] transition-colors">Quinceañeros</h3>
+                            <p class="text-[#fefae2]/70 text-sm leading-relaxed mb-6">Iluminación robótica avanzada, sonido impactante y escenarios diseñados para convertir la fiesta en un espectáculo lleno de energía.</p>
+                        </div>
+                        <a href="cotizador.html?tipo=Quinceañero" class="inline-flex items-center space-x-2 text-[#e7b263] hover:text-white text-sm font-bold pt-4 border-t border-[#a4202e]/20 transition">
+                            <span>Solicitar propuesta</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Conciertos & Fiestas -->
+                <div class="bg-[#2d080a] rounded-2xl overflow-hidden shadow-2xl border border-[#a4202e]/30 hover:border-[#e7b263]/60 transition-all duration-300 group flex flex-col">
+                    <div class="h-52 bg-cover bg-center relative overflow-hidden" style="background-image: url('assets/img/eventos/concierto2.jpg');">
+                        <div class="absolute inset-0 bg-gradient-to-t from-[#2d080a] via-transparent to-black/30"></div>
+                        <div class="absolute top-4 left-4">
+                            <span class="bg-[#e7b263] text-[#2d080a] text-xs font-extrabold px-3 py-1 rounded-full shadow-md uppercase tracking-wider">Gran Escala</span>
+                        </div>
+                    </div>
+                    <div class="p-7 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="text-2xl font-bold text-[#fefae2] mb-3 group-hover:text-e7b263 transition-colors">Conciertos & Fiestas</h3>
+                            <p class="text-[#fefae2]/70 text-sm leading-relaxed mb-6">Producción técnica de alto nivel para artistas, escenarios masivos, sonido line array y eventos de gran convocatoria.</p>
+                        </div>
+                        <a href="cotizador.html?tipo=Concierto" class="inline-flex items-center space-x-2 text-[#e7b263] hover:text-white text-sm font-bold pt-4 border-t border-[#a4202e]/20 transition">
+                            <span>Solicitar propuesta</span>
+                            <i data-lucide="arrow-right" class="w-4 h-4"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-[#1a0405] border-t border-[#a4202e]/30 py-12 px-4 text-sm text-[#fefae2]/60">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <p class="font-bold text-[#fefae2]">SONIDO EUROS BOLIVIA</p>
+                <p class="mt-1">Servicios Profesionales de Sonido, Iluminación y Producción de Eventos.</p>
+            </div>
+            <p>&copy; 2026 Sonido Euros Bolivia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>

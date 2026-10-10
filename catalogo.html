@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catálogo - Sonido Euros Bolivia</title>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+</head>
+<body class="bg-[#fefae2] text-[#2d080a] antialiased min-h-screen flex flex-col justify-between">
+
+    <div>
+        <!-- Header Estático y Cuadrado -->
+        <header class="sticky top-0 z-50 bg-[#1a0405] border-b border-[#a4202e]/30 shadow-xl text-[#fefae2]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
+                
+                <!-- Izquierda: Logotipo -->
+                <a href="index.html" class="flex items-center space-x-3 w-64">
+                    <img src="assets/img/logo Los euros_facturas.png" alt="Sonido Euros Logo" class="h-14 w-auto object-contain">
+                    <span class="text-xl font-extrabold tracking-wider hidden sm:inline">SONIDO <span class="text-[#a4202e]">EUROS</span></span>
+                </a>
+
+                <!-- Centro: Menú Principal -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="index.html" class="hover:text-[#e7b263] transition">Inicio</a>
+                    <a href="catalogo.html" class="text-[#e7b263] border-b-2 border-[#e7b263] pb-1 transition">Catálogo</a>
+                    <a href="cotizador.html" class="hover:text-[#e7b263] transition">Cotizador</a>
+                </nav>
+
+                <!-- Derecha: Contenedor Dinámico de Autenticación -->
+                <div id="auth-nav-container" class="flex items-center justify-end space-x-3 w-64">
+                    <!-- Contenido inyectado dinámicamente por auth.js -->
+                </div>
+            </div>
+        </header>
+
+        <!-- Contenido Principal -->
+        <main class="max-w-7xl mx-auto px-4 py-12">
+            <div class="text-center mb-12">
+                <h1 class="text-4xl font-black mb-3 text-[#2d080a]">Catálogo y Paquetes Profesionales</h1>
+                <p class="text-[#2d080a]/70">Selecciona paquetes listos para tu evento o arma tu equipo por componentes individuales.</p>
+            </div>
+
+            <!-- Sección de Paquetes Preconfigurados -->
+            <section class="mb-16">
+                <h2 class="text-2xl font-bold text-[#a4202e] mb-6 flex items-center space-x-2">
+                    <i data-lucide="package" class="w-6 h-6"></i>
+                    <span>Paquetes Preconfigurados</span>
+                </h2>
+                <div id="packages-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <!-- Se llena dinámicamente con catalog.js -->
+                </div>
+            </section>
+
+            <!-- Sección de Filtros y Búsqueda para Equipos Individuales -->
+            <section class="mb-8">
+                <div class="bg-[#620f14] border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl">
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+                        <!-- Buscador por texto -->
+                        <div>
+                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Buscar Equipo</label>
+                            <input type="text" id="search-input" placeholder="Ej. Micrófono, Parlante, Luces..." class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                        </div>
+                        <!-- Filtro por Categoría -->
+                        <div>
+                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Filtrar por Categoría</label>
+                            <select id="category-filter" class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                                <option value="">Todas las categorías</option>
+                            </select>
+                        </div>
+                        <!-- Ordenamiento -->
+                        <div>
+                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Ordenar por</label>
+                            <select id="sort-filter" class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                                <option value="default">Por defecto</option>
+                                <option value="precio-asc">Precio: Menor a Mayor</option>
+                                <option value="precio-desc">Precio: Mayor a Menor</option>
+                                <option value="nombre-asc">Nombre: A - Z</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sección de Equipos Individuales -->
+            <section>
+                <h2 class="text-2xl font-bold text-[#a4202e] mb-6 flex items-center space-x-2">
+                    <i data-lucide="sliders" class="w-6 h-6"></i>
+                    <span>Equipos y Componentes Individuales</span>
+                </h2>
+                <div id="catalog-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+                    <!-- Se llena dinámicamente con catalog.js -->
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Botón Flotante de WhatsApp -->
+    <a href="https://wa.me/59172793459?text=Hola,%20necesito%20asesoría%20con%20una%20cotización%20para%20mi%20evento" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-sm transition-transform hover:scale-105">
+        <i data-lucide="message-circle" class="w-5 h-5"></i>
+        <span class="hidden sm:inline">Hablar con el Experto</span>
+    </a>
+    
+    <!-- Footer -->
+    <footer class="bg-[#1a0405] border-t border-[#a4202e]/30 py-12 px-4 text-sm text-[#fefae2]/60">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+            <div>
+                <p class="font-bold text-[#fefae2]">SONIDO EUROS BOLIVIA</p>
+                <p class="mt-1">Servicios Profesionales de Sonido, Iluminación y Producción de Eventos.</p>
+            </div>
+            <p>&copy; 2026 Sonido Euros Bolivia. Todos los derechos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="js/supabaseClient.js"></script>
+    <script src="js/auth.js"></script>
+    <script src="js/catalog.js"></script>
+    <script>lucide.createIcons();</script>
+</body>
+</html>
