@@ -61,7 +61,7 @@ async function generarFacturaPDF(cotizacionId) {
 
         // 3. Encabezado de la Factura con Logo ajustado a 30 de alto
         const imgLogo = new Image();
-        imgLogo.src = 'assets/img/logo Los euros_facturas.png';
+        imgLogo.src = 'assets/img/logo_visual.png';
         
 imgLogo.onload = function() {
     doc.addImage(imgLogo, 'PNG', 14, 10, 35, 30);
