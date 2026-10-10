@@ -1,12 +1,17 @@
-<div class="bg-[#620f14] border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl space-y-6">
-    <div class="flex justify-between items-center">
-        <h2 class="text-lg font-bold text-[#e7b263] uppercase tracking-wide">Solicitudes y Cotizaciones</h2>
-        <span class="text-xs text-[#e7b263]/70 font-semibold">Tabla: cotizaciones_service_euros</span>
+<!-- Sección de Solicitudes y Cotizaciones (Panel de Administración / Gestión) -->
+<div class="bg-[#12192a] border border-[#00e4fb]/30 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 text-[#eaecee]">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-2">
+        <div>
+            <h2 class="text-xl font-extrabold text-[#eaecee] uppercase tracking-wide">Solicitudes y Cotizaciones</h2>
+            <p class="text-xs text-[#eaecee]/60 mt-0.5">Gestión interna y seguimiento de eventos.</p>
+        </div>
+        <span class="text-xs text-[#00e4fb] bg-[#002184]/50 border border-[#00e4fb]/30 px-3 py-1 rounded-lg font-mono">Tabla: cotizaciones_service_euros</span>
     </div>
+    
     <div class="overflow-x-auto">
         <table class="w-full text-left border-collapse">
             <thead>
-                <tr class="border-b border-[#a4202e]/40 text-xs text-[#e7b263] uppercase tracking-wider">
+                <tr class="border-b border-[#00e4fb]/30 text-xs text-[#00e4fb] uppercase tracking-wider">
                     <th class="py-3 px-3">ID</th>
                     <th class="py-3 px-3">Cliente / Teléfono</th>
                     <th class="py-3 px-3">Tipo Evento</th>
@@ -17,7 +22,7 @@
                     <th class="py-3 px-3 text-center">Acciones</th>
                 </tr>
             </thead>
-            <tbody id="tabla-cotizaciones-contenido" class="divide-y divide-[#a4202e]/20 text-sm">
+            <tbody id="tabla-cotizaciones-contenido" class="divide-y divide-[#00e4fb]/10 text-sm text-[#eaecee]/90">
                 <!-- Se llena vía JS -->
             </tbody>
         </table>
@@ -25,42 +30,42 @@
 </div>
 
 <!-- Modal Detallado: Ficha de Llamada y Ajuste de Tarifa Preferencial -->
-<div id="modal-precio" class="fixed inset-0 bg-black/75 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
-    <div class="bg-[#240608] border border-[#a4202e] p-6 rounded-2xl w-full max-w-md shadow-2xl space-y-5">
+<div id="modal-precio" class="fixed inset-0 bg-black/80 backdrop-blur-sm flex items-center justify-center hidden z-50 p-4">
+    <div class="bg-[#12192a] border border-[#00e4fb]/40 p-6 md:p-8 rounded-2xl w-full max-w-md shadow-2xl space-y-5 text-[#eaecee]">
         
         <!-- Input Oculto para almacenar el ID de la cotización actual -->
         <input type="hidden" id="modal-cot-id">
 
         <!-- Cabecera del Modal -->
-        <div class="flex justify-between items-start border-b border-[#a4202e]/40 pb-3">
+        <div class="flex justify-between items-start border-b border-[#00e4fb]/20 pb-3">
             <div>
-                <h3 class="text-base font-bold text-[#e7b263] uppercase tracking-wide">Gestión de Solicitud</h3>
-                <p class="text-xs text-[#fefae2]/60">Verificación y acuerdo por WhatsApp</p>
+                <h3 class="text-base font-extrabold text-[#eaecee] uppercase tracking-wide">Gestión de Solicitud</h3>
+                <p class="text-xs text-[#eaecee]/60">Verificación y acuerdo por WhatsApp (Virtual Studio)</p>
             </div>
-            <button type="button" onclick="cerrarModalPrecio()" class="text-[#e7b263]/70 hover:text-white text-lg font-bold px-2 py-0.5 rounded transition cursor-pointer">&times;</button>
+            <button type="button" onclick="cerrarModalPrecio()" class="text-[#eaecee]/60 hover:text-[#00e4fb] text-xl font-bold px-2 py-0.5 rounded transition cursor-pointer">&times;</button>
         </div>
 
         <!-- Tarjeta de Contacto de Alto Impacto Visual -->
-        <div class="bg-gradient-to-br from-[#41080c] to-[#620f14] p-4 rounded-xl border border-[#a4202e]/60 shadow-inner space-y-3">
+        <div class="bg-gradient-to-br from-[#1b253d] to-[#002184]/40 p-4 rounded-xl border border-[#00e4fb]/30 shadow-inner space-y-3">
             <div class="flex items-center space-x-3">
-                <div class="bg-[#e7b263]/20 p-2.5 rounded-lg text-[#e7b263]">
+                <div class="bg-[#00e4fb]/20 p-2.5 rounded-xl text-[#00e4fb]">
                     <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                     </svg>
                 </div>
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider text-[#e7b263]/70 font-semibold block">Cliente Titular</span>
+                    <span class="text-[10px] uppercase tracking-wider text-[#00e4fb] font-bold block">Cliente Titular</span>
                     <span id="modal-cliente-nombre" class="text-sm font-bold text-white">-</span>
                 </div>
             </div>
 
-            <div class="flex items-center justify-between pt-2 border-t border-[#a4202e]/30">
+            <div class="flex items-center justify-between pt-2 border-t border-[#00e4fb]/20">
                 <div>
-                    <span class="text-[10px] uppercase tracking-wider text-[#e7b263]/70 font-semibold block">Teléfono de Contacto</span>
-                    <span id="modal-cliente-telefono" class="text-base font-mono font-bold text-emerald-400 tracking-wide">-</span>
+                    <span class="text-[10px] uppercase tracking-wider text-[#00e4fb] font-bold block">Teléfono de Contacto</span>
+                    <span id="modal-cliente-telefono" class="text-base font-mono font-bold text-[#cdf9fe] tracking-wide">-</span>
                 </div>
                 <!-- Botón adaptado para WhatsApp Web / Desktop / Mobile -->
-                <a id="modal-btn-llamar" href="#" target="_blank" rel="noopener noreferrer" class="bg-emerald-600 hover:bg-emerald-700 text-white px-3.5 py-2 rounded-lg text-xs font-bold transition flex items-center space-x-1.5 shadow-md">
+                <a id="modal-btn-llamar" href="#" target="_blank" rel="noopener noreferrer" class="bg-[#25D366] hover:bg-[#20ba5a] text-white px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow-md">
                     <span>💬 WhatsApp</span>
                 </a>
             </div>
@@ -68,17 +73,17 @@
 
         <!-- Campo para Ajustar Precio -->
         <div class="space-y-1.5">
-            <label class="text-xs text-[#fefae2]/80 font-semibold block">Nuevo Monto Total Acordado (Bs.)</label>
+            <label class="text-xs text-[#eaecee]/80 font-bold uppercase tracking-wider block">Nuevo Monto Total Acordado (Bs.)</label>
             <div class="relative">
-                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-emerald-300 font-bold text-sm">Bs.</span>
-                <input type="number" id="modal-nuevo-precio" step="0.01" class="w-full bg-[#620f14] border border-[#a4202e]/60 rounded-xl py-2.5 pl-10 pr-3 text-white font-semibold text-sm focus:outline-none focus:ring-2 focus:ring-[#e7b263]/50">
+                <span class="absolute inset-y-0 left-0 pl-3 flex items-center text-[#00e4fb] font-bold text-sm">Bs.</span>
+                <input type="number" id="modal-nuevo-precio" step="0.01" class="w-full bg-[#1b253d] border border-[#00e4fb]/40 rounded-xl py-2.5 pl-10 pr-3 text-white font-semibold text-sm focus:outline-none focus:border-[#00e4fb] transition">
             </div>
         </div>
         
         <!-- Botones de Acción Inferiores Simétricos -->
-        <div class="flex space-x-3 pt-3 border-t border-[#a4202e]/40">
-            <button type="button" onclick="cerrarModalPrecio()" class="flex-1 px-4 py-2.5 rounded-xl bg-neutral-700 hover:bg-neutral-600 text-white text-xs font-semibold transition cursor-pointer">Cancelar</button>
-            <button type="button" onclick="guardarPrecioYAProbar()" class="flex-1 px-4 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-semibold transition shadow-md cursor-pointer">Guardar y Aprobar</button>
+        <div class="flex space-x-3 pt-3 border-t border-[#00e4fb]/20">
+            <button type="button" onclick="cerrarModalPrecio()" class="flex-1 px-4 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white text-xs font-bold transition cursor-pointer">Cancelar</button>
+            <button type="button" onclick="guardarPrecioYAProbar()" class="flex-1 px-4 py-2.5 rounded-xl bg-[#00e4fb] hover:bg-[#cdf9fe] text-[#12192a] text-xs font-extrabold transition shadow-md cursor-pointer">Guardar y Aprobar</button>
         </div>
     </div>
 </div>

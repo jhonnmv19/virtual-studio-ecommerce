@@ -3,51 +3,66 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Catálogo - Sonido Euros Bolivia</title>
+    <title>Catálogo - Virtual Studio Bolivia</title>
+    <!-- Favicon con el logotipo corporativo -->
     <link rel="icon" type="image/png" href="assets/img/logo_visual.png">
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
-<body class="bg-[#fefae2] text-[#2d080a] antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-[#c9f3fd] text-[#12192a] antialiased min-h-screen flex flex-col justify-between selection:bg-[#00e4fb] selection:text-[#12192a]">
 
     <div>
-        <!-- Header Estático y Cuadrado -->
-        <header class="sticky top-0 z-50 bg-[#1a0405] border-b border-[#a4202e]/30 shadow-xl text-[#fefae2]">
+        <!-- Header Estático y Responsive -->
+        <header class="sticky top-0 z-50 bg-[#12192a] text-[#eaecee] border-b border-[#00e4fb]/30 shadow-xl">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
                 
-                <!-- Izquierda: Logotipo -->
-                <a href="index.html" class="flex items-center space-x-3 w-64">
-                    <img src="assets/img/logo_visual.png" alt="Sonido Euros Logo" class="h-14 w-auto object-contain">
-                    <span class="text-xl font-extrabold tracking-wider hidden sm:inline">SONIDO <span class="text-[#a4202e]">EUROS</span></span>
+                <!-- Logotipo Virtual Studio -->
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <img src="assets/img/logo_visual.png" alt="Virtual Studio Logo" class="h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-wider">VIRTUAL<span class="text-[#00e4fb]">STUDIO</span></span>
                 </a>
 
-                <!-- Centro: Menú Principal -->
+                <!-- Navegación Escritorio -->
                 <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
-                    <a href="index.html" class="hover:text-[#e7b263] transition">Inicio</a>
-                    <a href="catalogo.html" class="text-[#e7b263] border-b-2 border-[#e7b263] pb-1 transition">Catálogo</a>
-                    <a href="cotizador.html" class="hover:text-[#e7b263] transition">Cotizador</a>
+                    <a href="index.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Inicio</a>
+                    <a href="catalogo.html" class="text-[#00e4fb] border-b-2 border-[#00e4fb] pb-1 transition">Catálogo</a>
+                    <a href="cotizador.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Cotizador</a>
+                    <a href="mis-solicitudes.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Mis Solicitudes</a>
                 </nav>
 
-                <!-- Derecha: Contenedor Dinámico de Autenticación -->
-                <div id="auth-nav-container" class="flex items-center justify-end space-x-3 w-64">
-                    <!-- Contenido inyectado dinámicamente por auth.js -->
-                </div>
+                <!-- Autenticación en Escritorio -->
+                <div id="auth-nav-container" class="hidden md:flex items-center space-x-3"></div>
+
+                <!-- Botón Menú Hamburguesa (Móvil) -->
+                <button id="mobile-menu-btn" class="md:hidden text-[#eaecee] hover:text-[#00e4fb] focus:outline-none p-2">
+                    <i data-lucide="menu" id="menu-icon-open" class="w-7 h-7"></i>
+                    <i data-lucide="x" id="menu-icon-close" class="w-7 h-7 hidden"></i>
+                </button>
+            </div>
+
+            <!-- Menú Hamburguesa Desplegable (Móvil) -->
+            <div id="mobile-menu" class="hidden md:hidden bg-[#12192a] border-b border-[#00e4fb]/20 px-4 pt-2 pb-6 space-y-3">
+                <a href="index.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Inicio</a>
+                <a href="catalogo.html" class="block py-2 text-base font-bold text-[#00e4fb]">Catálogo</a>
+                <a href="cotizador.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Cotizador</a>
+                <a href="mis-solicitudes.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Mis Solicitudes</a>
+                <div id="mobile-auth-nav-container" class="pt-3 border-t border-[#00e4fb]/20"></div>
             </div>
         </header>
 
         <!-- Contenido Principal -->
-        <main class="max-w-7xl mx-auto px-4 py-12">
-            <div class="text-center mb-12">
-                <h1 class="text-4xl font-black mb-3 text-[#2d080a]">Catálogo y Paquetes Profesionales</h1>
-                <p class="text-[#2d080a]/70">Selecciona paquetes listos para tu evento o arma tu equipo por componentes individuales.</p>
+        <main class="max-w-7xl mx-auto px-4 py-8 md:py-12">
+            <div class="text-center mb-10 md:mb-12">
+                <h1 class="text-3xl md:text-5xl font-black mb-3 text-[#12192a] tracking-tight">Catálogo y Paquetes Profesionales</h1>
+                <p class="text-[#12192a]/75 text-sm md:text-base max-w-2xl mx-auto">Selecciona paquetes listos para tu evento o arma tu equipo por componentes individuales con tecnología Virtual Studio.</p>
             </div>
 
             <!-- Sección de Paquetes Preconfigurados -->
-            <section class="mb-16">
-                <h2 class="text-2xl font-bold text-[#a4202e] mb-6 flex items-center space-x-2">
-                    <i data-lucide="package" class="w-6 h-6"></i>
+            <section class="mb-14">
+                <h2 class="text-xl md:text-2xl font-extrabold text-[#12192a] mb-6 flex items-center space-x-2">
+                    <i data-lucide="package" class="w-6 h-6 text-[#00e4fb]"></i>
                     <span>Paquetes Preconfigurados</span>
                 </h2>
                 <div id="packages-container" class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -56,25 +71,25 @@
             </section>
 
             <!-- Sección de Filtros y Búsqueda para Equipos Individuales -->
-            <section class="mb-8">
-                <div class="bg-[#620f14] border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl">
+            <section class="mb-10">
+                <div class="bg-[#12192a] border border-[#00e4fb]/30 rounded-2xl p-5 md:p-6 shadow-xl">
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
                         <!-- Buscador por texto -->
                         <div>
-                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Buscar Equipo</label>
-                            <input type="text" id="search-input" placeholder="Ej. Micrófono, Parlante, Luces..." class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                            <label class="block text-xs font-bold text-[#00e4fb] uppercase tracking-wider mb-2">Buscar Equipo</label>
+                            <input type="text" id="search-input" placeholder="Ej. Micrófono, Consola, Pantalla LED..." class="w-full bg-[#1b253d] border border-[#00e4fb]/40 rounded-xl px-4 py-2.5 text-sm text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition">
                         </div>
                         <!-- Filtro por Categoría -->
                         <div>
-                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Filtrar por Categoría</label>
-                            <select id="category-filter" class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                            <label class="block text-xs font-bold text-[#00e4fb] uppercase tracking-wider mb-2">Filtrar por Categoría</label>
+                            <select id="category-filter" class="w-full bg-[#1b253d] border border-[#00e4fb]/40 rounded-xl px-4 py-2.5 text-sm text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition">
                                 <option value="">Todas las categorías</option>
                             </select>
                         </div>
                         <!-- Ordenamiento -->
                         <div>
-                            <label class="block text-xs font-bold text-[#e7b263] mb-2">Ordenar por</label>
-                            <select id="sort-filter" class="w-full bg-[#2d080a] border border-[#a4202e]/50 rounded-xl px-4 py-2.5 text-sm text-[#fefae2] focus:outline-none focus:border-[#e7b263]">
+                            <label class="block text-xs font-bold text-[#00e4fb] uppercase tracking-wider mb-2">Ordenar por</label>
+                            <select id="sort-filter" class="w-full bg-[#1b253d] border border-[#00e4fb]/40 rounded-xl px-4 py-2.5 text-sm text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition">
                                 <option value="default">Por defecto</option>
                                 <option value="precio-asc">Precio: Menor a Mayor</option>
                                 <option value="precio-desc">Precio: Mayor a Menor</option>
@@ -87,8 +102,8 @@
 
             <!-- Sección de Equipos Individuales -->
             <section>
-                <h2 class="text-2xl font-bold text-[#a4202e] mb-6 flex items-center space-x-2">
-                    <i data-lucide="sliders" class="w-6 h-6"></i>
+                <h2 class="text-xl md:text-2xl font-extrabold text-[#12192a] mb-6 flex items-center space-x-2">
+                    <i data-lucide="sliders" class="w-6 h-6 text-[#00e4fb]"></i>
                     <span>Equipos y Componentes Individuales</span>
                 </h2>
                 <div id="catalog-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
@@ -99,19 +114,19 @@
     </div>
 
     <!-- Botón Flotante de WhatsApp -->
-    <a href="https://wa.me/59172793459?text=Hola,%20necesito%20asesoría%20con%20una%20cotización%20para%20mi%20evento" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-sm transition-transform hover:scale-105">
+    <a href="https://wa.me/59167433340?text=Hola,%20necesito%20asesoría%20con%20una%20cotización%20de%20Virtual%20Studio" target="_blank" class="fixed bottom-6 right-6 z-50 bg-[#25D366] hover:bg-[#20ba5a] text-white px-4 py-3 rounded-full shadow-2xl flex items-center space-x-2 font-bold text-sm transition-transform hover:scale-105">
         <i data-lucide="message-circle" class="w-5 h-5"></i>
         <span class="hidden sm:inline">Hablar con el Experto</span>
     </a>
     
     <!-- Footer -->
-    <footer class="bg-[#1a0405] border-t border-[#a4202e]/30 py-12 px-4 text-sm text-[#fefae2]/60">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
+    <footer class="bg-[#12192a] text-[#eaecee]/70 border-t border-[#00e4fb]/30 py-8 px-4 text-sm mt-12">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
             <div>
-                <p class="font-bold text-[#fefae2]">SONIDO EUROS BOLIVIA</p>
-                <p class="mt-1">Servicios Profesionales de Sonido, Iluminación y Producción de Eventos.</p>
+                <p class="font-bold text-[#eaecee]">VIRTUAL STUDIO BOLIVIA</p>
+                <p class="text-xs text-[#eaecee]/60 mt-1">Producción Audiovisual, Sonido e Iluminación Profesional.</p>
             </div>
-            <p>&copy; 2026 Sonido Euros Bolivia. Todos los derechos reservados.</p>
+            <p class="text-xs">&copy; 2026 Virtual Studio Bolivia. Todos los derechos reservados.</p>
         </div>
     </footer>
 
@@ -119,6 +134,22 @@
     <script src="js/supabaseClient.js"></script>
     <script src="js/auth.js"></script>
     <script src="js/catalog.js"></script>
-    <script>lucide.createIcons();</script>
+    <script>
+        // Lógica para el menú hamburguesa
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+        }
+
+        lucide.createIcons();
+    </script>
 </body>
 </html>

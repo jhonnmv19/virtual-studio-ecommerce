@@ -1,19 +1,19 @@
-<div class="bg-[#620f14] border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl space-y-6 text-[#fefae2] w-full max-w-7xl mx-auto">
+<div class="bg-[#12192a] border border-[#00e4fb]/30 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 text-[#eaecee] w-full max-w-7xl mx-auto">
     <!-- Cabecera simétrica con pestañas de control -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#a4202e]/40 pb-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#00e4fb]/20 pb-4">
         <div>
-            <h2 class="text-xl font-bold text-[#e7b263] uppercase tracking-wide">Logística y Despachos - Service Euros</h2>
-            <p class="text-xs text-[#e7b263]/70">Gestión de fletes, destinos programados y tarifas por zona</p>
+            <h2 class="text-xl font-extrabold text-[#eaecee] uppercase tracking-wide">Logística y Despachos - Virtual Studio</h2>
+            <p class="text-xs text-[#eaecee]/60 mt-0.5">Gestión de fletes, destinos programados y tarifas por zona en Bolivia</p>
         </div>
         <div class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="cambiarVistaLogistica('despachos')" id="btn-tab-despachos" class="flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition">
+            <button onclick="cambiarVistaLogistica('despachos')" id="btn-tab-despachos" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer">
                 Eventos & Despachos
             </button>
-            <button onclick="cambiarVistaLogistica('tarifas')" id="btn-tab-tarifas" class="flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition">
+            <button onclick="cambiarVistaLogistica('tarifas')" id="btn-tab-tarifas" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer">
                 Zonas & Tarifas Flete
             </button>
-            <button onclick="abrirModalTarifa()" class="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white hover:bg-emerald-500 transition flex items-center justify-center gap-1 shadow">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+            <button onclick="abrirModalTarifa()" class="px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] hover:bg-[#cdf9fe] transition flex items-center justify-center gap-1.5 shadow-lg cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
                 Nueva Zona
             </button>
         </div>
@@ -28,10 +28,10 @@
 
     <!-- SECCIÓN 2: ADMINISTRACIÓN DE TARIFAS DE TRANSPORTE Y ZONAS -->
     <div id="seccion-tarifas" class="space-y-4 hidden">
-        <div class="overflow-x-auto rounded-xl border border-[#a4202e]/30 bg-black/10">
+        <div class="overflow-x-auto rounded-xl border border-[#00e4fb]/20 bg-[#1b253d]/50">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b border-[#a4202e]/40 text-xs text-[#e7b263] uppercase bg-[#620f14]/80">
+                    <tr class="border-b border-[#00e4fb]/30 text-xs text-[#00e4fb] uppercase bg-[#12192a]/80">
                         <th class="p-3.5 w-16 text-center">ID</th>
                         <th class="p-3.5 w-1/3">Departamento / Zona</th>
                         <th class="p-3.5 w-32 text-right">Costo Base Flete</th>
@@ -39,7 +39,7 @@
                         <th class="p-3.5 w-32 text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-tarifas-contenido" class="divide-y divide-[#a4202e]/20 text-sm">
+                <tbody id="tabla-tarifas-contenido" class="divide-y divide-[#00e4fb]/10 text-sm text-[#eaecee]/90">
                     <!-- Dinámico por JS -->
                 </tbody>
             </table>
@@ -49,30 +49,30 @@
 
 <!-- MODAL PARA ASIGNAR / ACTUALIZAR FLETE A UN EVENTO APROBADO -->
 <div id="modal-flete-evento" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-[#620f14] border border-[#e7b263]/40 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 text-[#fefae2]">
-        <div class="flex justify-between items-center border-b border-[#a4202e]/40 pb-3">
-            <h3 class="text-lg font-bold text-[#e7b263]">Actualizar Costo de Flete</h3>
-            <button onclick="cerrarModalFlete()" class="text-[#e7b263] hover:text-white font-bold text-xl">&times;</button>
+    <div class="bg-[#12192a] border border-[#00e4fb]/40 rounded-2xl w-full max-w-md p-6 md:p-8 shadow-2xl space-y-4 text-[#eaecee]">
+        <div class="flex justify-between items-center border-b border-[#00e4fb]/20 pb-3">
+            <h3 class="text-lg font-extrabold text-[#eaecee]">Actualizar Costo de Flete</h3>
+            <button onclick="cerrarModalFlete()" class="text-[#eaecee]/60 hover:text-[#00e4fb] font-bold text-xl cursor-pointer">&times;</button>
         </div>
         <form id="form-flete" onsubmit="guardarFleteEvento(event)" class="space-y-4 text-xs">
             <input type="hidden" id="flete-cotizacion-id">
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Destino Actual:</label>
-                <p id="flete-txt-destino" class="text-sm font-bold text-white bg-neutral-900 p-2.5 rounded-lg border border-[#a4202e]/40"></p>
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Destino Actual:</label>
+                <p id="flete-txt-destino" class="text-sm font-bold text-[#cdf9fe] bg-[#1b253d] p-3 rounded-xl border border-[#00e4fb]/30"></p>
             </div>
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Seleccionar Zona / Tarifa Predefinida:</label>
-                <select id="flete-select-tarifa" onchange="seleccionarTarifaZona()" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Seleccionar Zona / Tarifa Predefinida:</label>
+                <select id="flete-select-tarifa" onchange="seleccionarTarifaZona()" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     <option value="">-- Seleccionar Zona --</option>
                 </select>
             </div>
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Costo Flete Asignado (Bs.) *</label>
-                <input type="number" step="0.01" id="flete-costo-input" required min="0" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Costo Flete Asignado (Bs.) *</label>
+                <input type="number" step="0.01" id="flete-costo-input" required min="0" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
             </div>
-            <div class="flex justify-end gap-2 pt-3 border-t border-[#a4202e]/40">
-                <button type="button" onclick="cerrarModalFlete()" class="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold">Cancelar</button>
-                <button type="submit" class="px-5 py-2 rounded-xl bg-[#e7b263] text-[#620f14] font-bold hover:bg-amber-400 shadow">Guardar Flete</button>
+            <div class="flex justify-end gap-2 pt-3 border-t border-[#00e4fb]/20">
+                <button type="button" onclick="cerrarModalFlete()" class="px-4 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs cursor-pointer transition">Cancelar</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#00e4fb] text-[#12192a] font-extrabold hover:bg-[#cdf9fe] shadow-md text-xs cursor-pointer transition">Guardar Flete</button>
             </div>
         </form>
     </div>
@@ -80,28 +80,28 @@
 
 <!-- MODAL PARA CREAR / EDITAR ZONAS Y TARIFAS DE TRANSPORTE -->
 <div id="modal-tarifa" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-[#620f14] border border-[#e7b263]/40 rounded-2xl w-full max-w-md p-6 shadow-2xl space-y-4 text-[#fefae2]">
-        <div class="flex justify-between items-center border-b border-[#a4202e]/40 pb-3">
-            <h3 id="modal-tarifa-titulo" class="text-lg font-bold text-[#e7b263]">Gestión de Zona y Flete</h3>
-            <button onclick="cerrarModalTarifa()" class="text-[#e7b263] hover:text-white font-bold text-xl">&times;</button>
+    <div class="bg-[#12192a] border border-[#00e4fb]/40 rounded-2xl w-full max-w-md p-6 md:p-8 shadow-2xl space-y-4 text-[#eaecee]">
+        <div class="flex justify-between items-center border-b border-[#00e4fb]/20 pb-3">
+            <h3 id="modal-tarifa-titulo" class="text-lg font-extrabold text-[#eaecee]">Gestión de Zona y Flete</h3>
+            <button onclick="cerrarModalTarifa()" class="text-[#eaecee]/60 hover:text-[#00e4fb] font-bold text-xl cursor-pointer">&times;</button>
         </div>
         <form id="form-tarifa" onsubmit="guardarTarifaZona(event)" class="space-y-4 text-xs">
             <input type="hidden" id="tarifa-id">
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Departamento o Zona *</label>
-                <input type="text" id="tarifa-zona" required placeholder="Ej: Tiquipaya, Cercado, Quillacollo" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Departamento o Zona *</label>
+                <input type="text" id="tarifa-zona" required placeholder="Ej: Tiquipaya, Cercado, Quillacollo" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
             </div>
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Costo Base Flete (Bs.) *</label>
-                <input type="number" step="0.01" id="tarifa-costo" required min="0" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Costo Base Flete (Bs.) *</label>
+                <input type="number" step="0.01" id="tarifa-costo" required min="0" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
             </div>
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Descripción / Condiciones</label>
-                <textarea id="tarifa-desc" rows="2" placeholder="Ej: Incluye transporte y peaje urbano" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]"></textarea>
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Descripción / Condiciones</label>
+                <textarea id="tarifa-desc" rows="2" placeholder="Ej: Incluye transporte y peaje urbano" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm"></textarea>
             </div>
-            <div class="flex justify-end gap-2 pt-3 border-t border-[#a4202e]/40">
-                <button type="button" onclick="cerrarModalTarifa()" class="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold">Cancelar</button>
-                <button type="submit" class="px-5 py-2 rounded-xl bg-[#e7b263] text-[#620f14] font-bold hover:bg-amber-400 shadow">Guardar Zona</button>
+            <div class="flex justify-end gap-2 pt-3 border-t border-[#00e4fb]/20">
+                <button type="button" onclick="cerrarModalTarifa()" class="px-4 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs cursor-pointer transition">Cancelar</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#00e4fb] text-[#12192a] font-extrabold hover:bg-[#cdf9fe] shadow-md text-xs cursor-pointer transition">Guardar Zona</button>
             </div>
         </form>
     </div>

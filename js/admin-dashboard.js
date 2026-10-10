@@ -81,8 +81,8 @@ async function cargarSolicitudesEnRevision() {
         if (!solicitudes || solicitudes.length === 0) {
             tablaBody.innerHTML = `
                 <tr>
-                    <td colspan="6" class="py-6 text-center text-[#e7b263]/70 text-sm">
-                        No hay solicitudes pendientes en revisión por el momento. ¡Todo al día!
+                    <td colspan="6" class="py-6 text-center text-[#eaecee]/60 text-sm">
+                        No hay solicitudes pendientes en revisión por el momento. ¡Todo al día en Virtual Studio!
                     </td>
                 </tr>
             `;
@@ -97,17 +97,17 @@ async function cargarSolicitudesEnRevision() {
             const montoTotal = parseFloat(item.precio_estimado_total || 0).toLocaleString('es-BO', { minimumFractionDigits: 2 });
 
             htmlRows += `
-                <tr class="border-b border-[#a4202e]/20 hover:bg-[#620f14]/30 transition">
-                    <td class="py-3 px-4 font-semibold text-white">#${item.id} - ${item.tipo_evento}</td>
-                    <td class="py-3 px-4">
-                        <div class="font-medium">${clienteNombre}</div>
-                        <div class="text-xs text-[#e7b263]">${clienteTelefono}</div>
+                <tr class="border-b border-[#00e4fb]/10 hover:bg-[#1b253d]/50 transition">
+                    <td class="py-3.5 px-4 font-bold text-[#eaecee]">#${item.id} <br><span class="text-xs font-normal text-[#00e4fb]">${item.tipo_evento}</span></td>
+                    <td class="py-3.5 px-4">
+                        <div class="font-bold text-[#eaecee]">${clienteNombre}</div>
+                        <div class="text-xs text-[#00e4fb] font-mono">${clienteTelefono}</div>
                     </td>
-                    <td class="py-3 px-4 text-xs">${fechaFormateada} (${item.hora_inicio})</td>
-                    <td class="py-3 px-4 text-xs">${item.departamento} <br><span class="text-gray-400">${item.direccion_exacta || ''}</span></td>
-                    <td class="py-3 px-4 font-bold text-emerald-400">Bs. ${montoTotal}</td>
-                    <td class="py-3 px-4 text-right">
-                        <button onclick="cargarVista('cotizaciones')" class="bg-[#a4202e] hover:bg-rose-700 text-[#fefae2] text-xs font-semibold px-3 py-1.5 rounded-lg transition shadow">
+                    <td class="py-3.5 px-4 text-xs text-[#eaecee]/80">${fechaFormateada} <br><span class="text-[#00e4fb]">${item.hora_inicio || ''}</span></td>
+                    <td class="py-3.5 px-4 text-xs text-[#eaecee]/80">${item.departamento} <br><span class="text-[#eaecee]/50">${item.direccion_exacta || ''}</span></td>
+                    <td class="py-3.5 px-4 font-black text-[#00e4fb]">Bs. ${montoTotal}</td>
+                    <td class="py-3.5 px-4 text-right">
+                        <button onclick="cargarVista('cotizaciones')" class="bg-[#00e4fb] hover:bg-[#cdf9fe] text-[#12192a] text-xs font-extrabold px-3.5 py-2 rounded-xl transition shadow-md cursor-pointer">
                             Ver Detalle
                         </button>
                     </td>
@@ -130,12 +130,12 @@ async function cargarVista(vista) {
     const container = document.getElementById('admin-main-container');
     const title = document.getElementById('header-title');
     
-    // Actualizar estilos activos del menú lateral
+    // Actualizar estilos activos del menú lateral para Virtual Studio
     document.querySelectorAll('.nav-btn').forEach(btn => {
         if(btn.getAttribute('data-target') === vista) {
-            btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-[#a4202e] text-[#fefae2] font-semibold transition nav-btn";
+            btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl bg-[#00e4fb] text-[#12192a] font-extrabold transition nav-btn shadow-md";
         } else {
-            btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-[#e7b263] hover:bg-[#620f14]/50 transition nav-btn";
+            btn.className = "w-full flex items-center space-x-3 px-4 py-3 rounded-xl text-[#eaecee]/80 hover:text-[#00e4fb] hover:bg-[#1b253d] transition nav-btn";
         }
     });
 
@@ -145,28 +145,28 @@ async function cargarVista(vista) {
             container.innerHTML = `
                 <!-- Tarjetas de Métricas -->
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-[#620f14] border border-[#a4202e]/40 p-6 rounded-2xl shadow-lg">
-                        <p class="text-xs text-[#e7b263] font-bold uppercase mb-1">Ingresos Confirmados / Mes</p>
-                        <h3 id="metric-ingresos" class="text-3xl font-extrabold tracking-tight">Bs. 0.00</h3>
+                    <div class="bg-[#12192a] border border-[#00e4fb]/30 p-6 rounded-2xl shadow-xl">
+                        <p class="text-xs text-[#00e4fb] font-bold uppercase tracking-wider mb-1">Ingresos Confirmados / Mes</p>
+                        <h3 id="metric-ingresos" class="text-3xl font-black tracking-tight text-[#eaecee]">Bs. 0.00</h3>
                     </div>
-                    <div class="bg-[#620f14] border border-[#a4202e]/40 p-6 rounded-2xl shadow-lg">
-                        <p class="text-xs text-[#e7b263] font-bold uppercase mb-1">Cotizaciones en Revisión</p>
-                        <h3 id="metric-pendientes" class="text-3xl font-extrabold">0</h3>
+                    <div class="bg-[#12192a] border border-[#00e4fb]/30 p-6 rounded-2xl shadow-xl">
+                        <p class="text-xs text-[#00e4fb] font-bold uppercase tracking-wider mb-1">Cotizaciones en Revisión</p>
+                        <h3 id="metric-pendientes" class="text-3xl font-black tracking-tight text-[#eaecee]">0</h3>
                     </div>
-                    <div class="bg-[#620f14] border border-[#a4202e]/40 p-6 rounded-2xl shadow-lg">
-                        <p class="text-xs text-[#e7b263] font-bold uppercase mb-1">Eventos Confirmados</p>
-                        <h3 id="metric-eventos" class="text-3xl font-extrabold">0</h3>
+                    <div class="bg-[#12192a] border border-[#00e4fb]/30 p-6 rounded-2xl shadow-xl">
+                        <p class="text-xs text-[#00e4fb] font-bold uppercase tracking-wider mb-1">Eventos Confirmados</p>
+                        <h3 id="metric-eventos" class="text-3xl font-black tracking-tight text-[#eaecee]">0</h3>
                     </div>
                 </div>
 
                 <!-- Sección de Solicitudes Recientes en Revisión -->
-                <div class="bg-[#620f14]/80 border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl space-y-4">
-                    <div class="flex justify-between items-center border-b border-[#a4202e]/30 pb-3">
+                <div class="bg-[#12192a] border border-[#00e4fb]/30 rounded-2xl p-6 md:p-8 shadow-2xl space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 border-b border-[#00e4fb]/20 pb-4">
                         <div>
-                            <h2 class="text-base font-extrabold tracking-wide text-[#fefae2]">Solicitudes Recientes en Revisión</h2>
-                            <p class="text-xs text-[#e7b263]">Últimas peticiones de eventos enviadas por los clientes que requieren tu verificación</p>
+                            <h2 class="text-lg font-extrabold tracking-tight text-[#eaecee]">Solicitudes Recientes en Revisión</h2>
+                            <p class="text-xs text-[#eaecee]/60 mt-0.5">Últimas peticiones enviadas por los clientes que requieren tu verificación en Virtual Studio</p>
                         </div>
-                        <button onclick="cargarMetricasGenerales()" class="bg-[#240608] border border-[#a4202e]/40 text-[#e7b263] hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition flex items-center space-x-1.5">
+                        <button onclick="cargarMetricasGenerales()" class="bg-[#1b253d] border border-[#00e4fb]/40 text-[#00e4fb] hover:bg-[#00e4fb] hover:text-[#12192a] px-3.5 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1.5 shadow cursor-pointer">
                             <i data-lucide="refresh-cw" class="w-3.5 h-3.5"></i>
                             <span>Actualizar</span>
                         </button>
@@ -175,7 +175,7 @@ async function cargarVista(vista) {
                     <div class="overflow-x-auto">
                         <table class="w-full text-left border-collapse">
                             <thead>
-                                <tr class="border-b border-[#a4202e]/30 text-xs text-[#e7b263] uppercase tracking-wider">
+                                <tr class="border-b border-[#00e4fb]/30 text-xs text-[#00e4fb] uppercase tracking-wider">
                                     <th class="py-3 px-4">Evento</th>
                                     <th class="py-3 px-4">Cliente</th>
                                     <th class="py-3 px-4">Fecha / Hora</th>
@@ -184,10 +184,9 @@ async function cargarVista(vista) {
                                     <th class="py-3 px-4 text-right">Acción</th>
                                 </tr>
                             </thead>
-                            <tbody id="tabla-solicitudes-recientes" class="text-sm divide-y divide-[#a4202e]/20">
-                                <!-- Se inyecta dinámicamente -->
+                            <tbody id="tabla-solicitudes-recientes" class="text-sm divide-y divide-[#00e4fb]/10">
                                 <tr>
-                                    <td colspan="6" class="py-6 text-center text-[#e7b263]/70 text-sm">Cargando solicitudes recientes...</td>
+                                    <td colspan="6" class="py-6 text-center text-[#eaecee]/60 text-sm">Cargando solicitudes recientes...</td>
                                 </tr>
                             </tbody>
                         </table>
@@ -221,7 +220,7 @@ async function cargarVista(vista) {
         setTimeout(() => lucide.createIcons(), 100);
     } catch (err) {
         console.error("Error al cargar la sección:", err);
-        container.innerHTML = `<div class="p-6 text-rose-400">Error al cargar el módulo ${vista}. Asegúrate de que el archivo exista en la carpeta admin-content/.</div>`;
+        container.innerHTML = `<div class="p-6 bg-rose-950/40 border border-rose-500/40 text-rose-300 rounded-2xl">Error al cargar el módulo ${vista}. Asegúrate de que el archivo exista en la carpeta admin-content/.</div>`;
     }
 }
 

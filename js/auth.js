@@ -1,3 +1,5 @@
+// js/auth.js
+
 /**
  * Retorna el usuario actual almacenado en sesión
  */
@@ -20,15 +22,17 @@ function logoutUser() {
 }
 
 /**
- * Muestra mensajes limpios en la interfaz en lugar de usar alert()
+ * Muestra mensajes limpios en la interfaz con la temática de Virtual Studio
  */
 function showAuthMessage(message, isError = false) {
   const msgBox = document.getElementById('auth-message');
   if (!msgBox) return;
   
   msgBox.textContent = message;
-  msgBox.className = `mb-4 p-3 rounded-xl text-xs font-semibold text-center ${
-    isError ? 'bg-[#a4202e]/30 border border-[#a4202e] text-[#fefae2]' : 'bg-[#e7b263]/20 border border-[#e7b263] text-[#e7b263]'
+  msgBox.className = `mb-4 p-3 rounded-xl text-xs font-semibold text-center border ${
+    isError 
+      ? 'bg-rose-950/40 border-rose-500/40 text-rose-300' 
+      : 'bg-[#12192a] border-[#00e4fb]/40 text-[#00e4fb]'
   }`;
   msgBox.classList.remove('hidden');
 }
@@ -48,13 +52,13 @@ function switchTab(tab) {
   if (tab === 'login') {
     if (loginForm) loginForm.classList.remove('hidden');
     if (regForm) regForm.classList.add('hidden');
-    if (tabLogin) tabLogin.className = "flex-1 text-center font-bold pb-2 text-[#e7b263] border-b-2 border-[#e7b263] transition";
-    if (tabReg) tabReg.className = "flex-1 text-center font-bold pb-2 text-[#fefae2]/60 hover:text-[#fefae2] transition";
+    if (tabLogin) tabLogin.className = "flex-1 text-center font-bold pb-2 text-[#00e4fb] border-b-2 border-[#00e4fb] transition";
+    if (tabReg) tabReg.className = "flex-1 text-center font-bold pb-2 text-[#eaecee]/60 hover:text-[#eaecee] transition";
   } else {
     if (loginForm) loginForm.classList.add('hidden');
     if (regForm) regForm.classList.remove('hidden');
-    if (tabReg) tabReg.className = "flex-1 text-center font-bold pb-2 text-[#e7b263] border-b-2 border-[#e7b263] transition";
-    if (tabLogin) tabLogin.className = "flex-1 text-center font-bold pb-2 text-[#fefae2]/60 hover:text-[#fefae2] transition";
+    if (tabReg) tabReg.className = "flex-1 text-center font-bold pb-2 text-[#00e4fb] border-b-2 border-[#00e4fb] transition";
+    if (tabLogin) tabLogin.className = "flex-1 text-center font-bold pb-2 text-[#eaecee]/60 hover:text-[#eaecee] transition";
   }
 }
 
@@ -168,15 +172,11 @@ function updateNavbarAuth() {
     const safeName = user.nombre_completo ? user.nombre_completo.split(' ')[0] : 'Usuario';
     authContainer.innerHTML = `
       <div class="flex items-center space-x-3">
-        <a href="mis-solicitudes.html" class="text-xs text-[#e7b263] hover:underline font-semibold flex items-center space-x-1" title="Mis Solicitudes">
-          <i data-lucide="file-text" class="w-4 h-4"></i>
-          <span class="hidden lg:inline">Mis Solicitudes</span>
-        </a>
-        <span class="text-xs text-[#e7b263] font-semibold hidden sm:inline">
-          Hola, <strong class="text-[#fefae2]">${safeName}</strong>
+        <span class="text-xs text-[#00e4fb] font-semibold hidden sm:inline">
+          Hola, <strong class="text-[#eaecee]">${safeName}</strong>
         </span>
-        ${user.rol === 'admin' ? '<a href="admin.html" class="text-xs bg-[#a4202e] hover:bg-[#861924] px-2.5 py-1.5 rounded-lg font-bold transition">Admin</a>' : ''}
-        <button onclick="logoutUser()" class="text-xs text-[#fefae2]/70 hover:text-[#a4202e] font-semibold flex items-center space-x-1 transition cursor-pointer" title="Cerrar Sesión">
+        ${user.rol === 'admin' ? '<a href="admin.html" class="text-xs bg-[#00e4fb] hover:bg-white text-[#12192a] px-2.5 py-1.5 rounded-lg font-bold transition">Admin</a>' : ''}
+        <button onclick="logoutUser()" class="text-xs text-[#eaecee]/70 hover:text-[#00e4fb] font-semibold flex items-center space-x-1 transition cursor-pointer" title="Cerrar Sesión">
           <i data-lucide="log-out" class="w-4 h-4"></i>
           <span class="hidden md:inline">Salir</span>
         </button>
@@ -189,7 +189,7 @@ function updateNavbarAuth() {
       : 'login.html';
 
     authContainer.innerHTML = `
-      <a href="${loginTarget}" class="inline-flex items-center space-x-1 border border-[#fefae2]/40 px-3 py-2 rounded-lg text-xs font-medium hover:bg-[#fefae2] hover:text-[#2d080a] transition">
+      <a href="${loginTarget}" class="inline-flex items-center space-x-1 border border-[#00e4fb]/40 px-3 py-2 rounded-lg text-xs font-medium text-[#eaecee] hover:bg-[#00e4fb] hover:text-[#12192a] transition">
         <i data-lucide="user" class="w-3.5 h-3.5"></i>
         <span>Acceso / Mi Cuenta</span>
       </a>

@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mis Solicitudes - Sonido Euros Bolivia</title>
+    <title>Mis Solicitudes - Virtual Studio Bolivia</title>
+    <!-- Favicon con el logotipo corporativo -->
     <link rel="icon" type="image/png" href="assets/img/logo_visual.png">
     <link rel="stylesheet" href="css/main.css">
     <script src="https://cdn.tailwindcss.com"></script>
@@ -13,48 +14,105 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf-autotable/3.5.28/jspdf.plugin.autotable.min.js"></script>
 </head>
-<body class="bg-[#fefae2] text-[#2d080a] antialiased min-h-screen flex flex-col justify-between">
+<body class="bg-[#c9f3fd] text-[#12192a] antialiased min-h-screen flex flex-col justify-between selection:bg-[#00e4fb] selection:text-[#12192a]">
 
-    <header class="sticky top-0 z-50 bg-[#1a0405] border-b border-[#a4202e]/30 shadow-xl text-[#fefae2]">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
-            <a href="index.html" class="flex items-center space-x-3">
-                <img src="assets/img/logo Los euros_facturas.png" alt="Sonido Euros Logo" class="h-14 w-auto object-contain">
-                <span class="text-xl font-extrabold tracking-wider hidden sm:inline">SONIDO <span class="text-[#a4202e]">EUROS</span></span>
-            </a>
-            <div id="auth-nav-container"></div>
-        </div>
-    </header>
+    <!-- Contenedor superior para el header y el main -->
+    <div class="flex flex-col flex-grow">
+        <!-- Header Estático y Responsive -->
+        <header class="sticky top-0 z-50 bg-[#12192a] text-[#eaecee] border-b border-[#00e4fb]/30 shadow-xl">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex justify-between items-center">
 
-    <main class="max-w-5xl mx-auto px-4 py-12 flex-grow w-full">
-        <h1 class="text-3xl font-black mb-2 text-[#2d080a]">Mis Solicitudes y Cotizaciones</h1>
-        <p class="text-[#2d080a]/70 mb-8">Revisa el estado de aprobación de tus eventos programados en Sonido Euros.</p>
+                <!-- Logotipo Virtual Studio -->
+                <a href="index.html" class="flex items-center space-x-3 group">
+                    <img src="assets/img/logo_visual.png" alt="Virtual Studio Logo" class="h-12 w-auto object-contain transition-transform group-hover:scale-105">
+                    <span class="text-xl font-extrabold tracking-wider">VIRTUAL<span class="text-[#00e4fb]">STUDIO</span></span>
+                </a>
 
-        <div id="solicitudes-container" class="space-y-4">
-            <p class="text-center text-[#2d080a]/60 py-8">Cargando tus solicitudes...</p>
-        </div>
-    </main>
+                <!-- Navegación Escritorio -->
+                <nav class="hidden md:flex items-center space-x-8 text-sm font-semibold">
+                    <a href="index.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Inicio</a>
+                    <a href="catalogo.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Catálogo</a>
+                    <a href="cotizador.html" class="text-[#eaecee]/80 hover:text-[#00e4fb] transition">Cotizador</a>
+                    <a href="mis-solicitudes.html" class="text-[#00e4fb] border-b-2 border-[#00e4fb] pb-1 transition">Mis Solicitudes</a>
+                </nav>
 
-    <footer class="bg-[#1a0405] border-t border-[#a4202e]/30 py-12 px-4 text-sm text-[#fefae2]/60">
-        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-6">
-            <p>&copy; 2026 Sonido Euros Bolivia. Todos los derechos reservados.</p>
+                <!-- Autenticación en Escritorio -->
+                <div id="auth-nav-container" class="hidden md:flex items-center space-x-3"></div>
+
+                <!-- Botón Menú Hamburguesa (Móvil) -->
+                <button id="mobile-menu-btn" class="md:hidden text-[#eaecee] hover:text-[#00e4fb] focus:outline-none p-2">
+                    <i data-lucide="menu" id="menu-icon-open" class="w-7 h-7"></i>
+                    <i data-lucide="x" id="menu-icon-close" class="w-7 h-7 hidden"></i>
+                </button>
+            </div>
+
+            <!-- Menú Hamburguesa Desplegable (Móvil) -->
+            <div id="mobile-menu" class="hidden md:hidden bg-[#12192a] border-b border-[#00e4fb]/20 px-4 pt-2 pb-6 space-y-3">
+                <a href="index.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Inicio</a>
+                <a href="catalogo.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Catálogo</a>
+                <a href="cotizador.html" class="block py-2 text-base font-semibold text-[#eaecee]/80 hover:text-[#00e4fb]">Cotizador</a>
+                <a href="mis-solicitudes.html" class="block py-2 text-base font-bold text-[#00e4fb]">Mis Solicitudes</a>
+                <div id="mobile-auth-nav-container" class="pt-3 border-t border-[#00e4fb]/20"></div>
+            </div>
+        </header>
+
+        <!-- Contenido Principal -->
+        <main class="max-w-5xl mx-auto px-4 py-8 md:py-12 w-full flex-grow">
+            <div class="mb-8">
+                <h1 class="text-3xl md:text-4xl font-black text-[#12192a] tracking-tight">Mis Solicitudes y Cotizaciones</h1>
+                <p class="text-[#12192a]/75 text-sm md:text-base mt-1">Revisa el estado de aprobación de tus eventos programados en Virtual Studio.</p>
+            </div>
+
+            <!-- Contenedor Dinámico -->
+            <div id="solicitudes-container" class="space-y-4">
+                <div class="bg-[#12192a] border border-[#00e4fb]/30 p-8 rounded-2xl shadow-xl text-center text-[#eaecee]">
+                    <p class="text-[#eaecee]/80">Cargando tus solicitudes...</p>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Footer Pegado Abajo -->
+    <footer class="bg-[#12192a] text-[#eaecee]/70 border-t border-[#00e4fb]/30 py-8 px-4 text-sm mt-auto">
+        <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+            <div>
+                <p class="font-bold text-[#eaecee]">VIRTUAL STUDIO BOLIVIA</p>
+                <p class="text-xs text-[#eaecee]/60 mt-1">Producción Audiovisual, Sonido e Iluminación Profesional.</p>
+            </div>
+            <p class="text-xs">&copy; 2026 Virtual Studio Bolivia. Todos los derechos reservados.</p>
         </div>
     </footer>
 
-    <!-- Scripts en el orden correcto -->
+    <!-- Scripts -->
     <script src="js/supabaseClient.js"></script>
     <script src="js/auth.js"></script>
-    <script src="js/facturaGenerator.js"></script> <!-- Archivo que contiene la función generarFacturaPDF -->
-    
+    <script src="js/facturaGenerator.js"></script>
+
     <script>
+        // Lógica para el menú hamburguesa
+        const menuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        const iconOpen = document.getElementById('menu-icon-open');
+        const iconClose = document.getElementById('menu-icon-close');
+
+        if (menuBtn) {
+            menuBtn.addEventListener('click', () => {
+                mobileMenu.classList.toggle('hidden');
+                iconOpen.classList.toggle('hidden');
+                iconClose.classList.toggle('hidden');
+            });
+        }
+
+        // Carga de solicitudes
         document.addEventListener('DOMContentLoaded', async () => {
-            const user = getCurrentUser();
+            const user = typeof getCurrentUser === 'function' ? getCurrentUser() : null;
             if (!user) {
                 window.location.href = 'login.html?redirect=mis-solicitudes.html';
                 return;
             }
 
             const container = document.getElementById('solicitudes-container');
-            
+
             try {
                 const { data, error } = await supabaseClient
                     .from('cotizaciones_service_euros')
@@ -65,34 +123,43 @@
                 if (error) throw error;
 
                 if (!data || data.length === 0) {
-                    container.innerHTML = `<div class="bg-white p-6 rounded-xl shadow text-center text-[#2d080a]">No tienes solicitudes de cotización registradas todavía. <a href="cotizador.html" class="text-[#a4202e] font-bold underline">¡Crea una aquí!</a></div>`;
+                    container.innerHTML = `
+                        <div class="bg-[#12192a] border border-[#00e4fb]/30 p-8 rounded-2xl shadow-xl text-center text-[#eaecee]">
+                            <p class="text-lg font-semibold mb-2">No tienes solicitudes de cotización registradas todavía.</p>
+                            <a href="cotizador.html" class="inline-block mt-3 bg-[#00e4fb] text-[#12192a] hover:bg-white px-6 py-2.5 rounded-xl font-bold transition shadow-md">¡Crea tu cotización aquí!</a>
+                        </div>`;
                     return;
                 }
 
                 container.innerHTML = data.map(cot => {
-                    let badgeColor = 'bg-yellow-500/20 text-yellow-700 border-yellow-500';
+                    let badgeColor = 'bg-amber-500/10 text-amber-300 border-amber-500/30';
                     let estadoTexto = 'En Revisión por Administración';
-                    
+
                     if (cot.estado === 'aprobado') {
-                        badgeColor = 'bg-green-500/20 text-green-700 border-green-500';
+                        badgeColor = 'bg-emerald-500/10 text-emerald-300 border-emerald-500/30';
                         estadoTexto = '¡Aprobado con Éxito!';
                     } else if (cot.estado === 'rechazado') {
-                        badgeColor = 'bg-red-500/20 text-red-700 border-red-500';
+                        badgeColor = 'bg-rose-500/10 text-rose-300 border-rose-500/30';
                         estadoTexto = 'Solicitud Rechazada';
                     }
 
                     return `
-                        <div class="bg-white border border-[#a4202e]/20 rounded-2xl p-6 shadow-md flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
-                            <div>
-                                <span class="inline-block px-3 py-1 rounded-full text-xs font-bold border ${badgeColor} mb-2">${estadoTexto}</span>
-                                <h3 class="text-xl font-extrabold text-[#2d080a]">${cot.tipo_evento} - ${cot.departamento}</h3>
-                                <p class="text-xs text-gray-500 mt-1">Fecha del evento: <strong>${cot.fecha_evento}</strong> a las ${cot.hora_inicio}</p>
-                                <p class="text-xs text-gray-500">Dirección: ${cot.direccion_exacta || 'No especificada'}</p>
-                                ${cot.motivo_rechazo ? `<p class="text-xs text-red-600 mt-2 bg-red-50 p-2 rounded"><strong>Motivo:</strong> ${cot.motivo_rechazo}</p>` : ''}
+                        <div class="bg-[#12192a] border border-[#00e4fb]/30 hover:border-[#00e4fb] transition-all rounded-2xl p-5 md:p-6 shadow-xl flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-[#eaecee]">
+                            <div class="w-full md:w-auto">
+                                <span class="inline-block px-3 py-1 rounded-full text-xs font-extrabold border ${badgeColor} mb-2">${estadoTexto}</span>
+                                <h3 class="text-lg md:text-xl font-extrabold text-[#00e4fb]">${cot.tipo_evento || 'Evento Virtual Studio'} ${cot.departamento ? `- ${cot.departamento}` : ''}</h3>
+                                <p class="text-xs md:text-sm text-[#eaecee]/80 mt-1">Fecha: <strong>${cot.fecha_evento || 'Por definir'}</strong> ${cot.hora_inicio ? `a las ${cot.hora_inicio}` : ''}</p>
+                                <p class="text-xs md:text-sm text-[#eaecee]/80 mt-0.5">Dirección: ${cot.direccion_exacta || 'No especificada'}</p>
+                                ${cot.motivo_rechazo ? `<p class="text-xs text-rose-300 mt-2 bg-rose-950/40 border border-rose-500/30 p-2.5 rounded-xl"><strong>Motivo:</strong> ${cot.motivo_rechazo}</p>` : ''}
                             </div>
-                            <div class="text-right w-full md:w-auto flex flex-col items-end gap-2">
-                                <span class="text-lg font-black text-[#a4202e]">Bs. ${parseFloat(cot.precio_estimado_total).toFixed(2)}</span>
-                                ${cot.estado === 'aprobado' ? `<button onclick="generarFacturaPDF(${cot.id})" class="bg-[#a4202e] hover:bg-[#861924] text-white px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-1 cursor-pointer"><i data-lucide="file-down" class="w-4 h-4"></i><span>Descargar Factura</span></button>` : ''}
+                            <div class="text-left md:text-right w-full md:w-auto flex flex-row md:flex-col justify-between md:justify-center items-center md:items-end gap-3 pt-3 md:pt-0 border-t md:border-t-0 border-[#00e4fb]/20">
+                                <span class="text-xl md:text-2xl font-black text-[#00e4fb]">Bs. ${parseFloat(cot.precio_estimado_total || 0).toFixed(2)}</span>
+                                ${cot.estado === 'aprobado' ? `
+                                    <button onclick="generarFacturaPDF(${cot.id})" class="bg-[#00e4fb] hover:bg-white text-[#12192a] px-4 py-2 rounded-xl text-xs font-bold transition flex items-center space-x-2 shadow-md cursor-pointer">
+                                        <i data-lucide="file-down" class="w-4 h-4"></i>
+                                        <span>Descargar Factura</span>
+                                    </button>
+                                ` : ''}
                             </div>
                         </div>
                     `;
@@ -100,8 +167,8 @@
 
                 lucide.createIcons();
             } catch (err) {
-                console.error(err);
-                container.innerHTML = `<p class="text-red-600 text-center">Error al cargar las solicitudes.</p>`;
+                console.error('Error al cargar solicitudes:', err);
+                container.innerHTML = `<div class="bg-rose-950/50 border border-rose-500/40 text-rose-200 p-4 rounded-xl text-center">Error al cargar las solicitudes. Por favor intenta nuevamente.</div>`;
             }
         });
     </script>

@@ -25,18 +25,18 @@ async function cargarTablaCotizaciones() {
         tbody.innerHTML = '';
 
         if (!cotizaciones || cotizaciones.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-3 text-center text-[#e7b263]/70 font-medium">No hay cotizaciones registradas.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="8" class="py-6 px-3 text-center text-[#eaecee]/60 font-medium">No hay cotizaciones registradas en Virtual Studio.</td></tr>`;
             return;
         }
 
         cotizaciones.forEach(cot => {
             let badge = '';
             if (cot.estado === 'en_revision') {
-                badge = `<span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-500/20 text-amber-400 border border-amber-500/30 uppercase tracking-wide">En Revisión</span>`;
+                badge = `<span class="inline-block px-3 py-1 rounded-xl text-[11px] font-extrabold bg-amber-500/20 text-amber-300 border border-amber-500/40 uppercase tracking-wide">En Revisión</span>`;
             } else if (cot.estado === 'aprobado') {
-                badge = `<span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase tracking-wide">Aprobado</span>`;
+                badge = `<span class="inline-block px-3 py-1 rounded-xl text-[11px] font-extrabold bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 uppercase tracking-wide">Aprobado</span>`;
             } else {
-                badge = `<span class="inline-block px-2.5 py-1 rounded-full text-[11px] font-bold bg-rose-500/20 text-rose-400 border border-rose-500/30 uppercase tracking-wide">Rechazado</span>`;
+                badge = `<span class="inline-block px-3 py-1 rounded-xl text-[11px] font-extrabold bg-rose-500/20 text-rose-300 border border-rose-500/40 uppercase tracking-wide">Rechazado</span>`;
             }
 
             const cliente = cot.usuarios_service_euros || {};
@@ -47,26 +47,26 @@ async function cargarTablaCotizaciones() {
             if (cot.estado === 'en_revision') {
                 accionesHTML = `
                     <div class="flex items-center justify-center space-x-1.5">
-                        <button type="button" onclick="abrirModalPrecio(${cot.id}, ${cot.precio_estimado_total || 0}, '${nombreCliente}', '${telefonoCliente}')" class="bg-amber-600 hover:bg-amber-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow-sm w-28 text-center truncate cursor-pointer">Detalles</button>
-                        <button type="button" onclick="cambiarEstadoCotizacion(${cot.id}, 'rechazado')" class="bg-rose-600 hover:bg-rose-700 text-white px-3 py-1.5 rounded-lg text-xs font-semibold transition shadow-sm w-24 text-center cursor-pointer">Rechazar</button>
+                        <button type="button" onclick="abrirModalPrecio(${cot.id}, ${cot.precio_estimado_total || 0}, '${nombreCliente}', '${telefonoCliente}')" class="bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm w-28 text-center truncate cursor-pointer">Detalles</button>
+                        <button type="button" onclick="cambiarEstadoCotizacion(${cot.id}, 'rechazado')" class="bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 px-3 py-1.5 rounded-xl text-xs font-bold transition shadow-sm w-24 text-center cursor-pointer">Rechazar</button>
                     </div>
                 `;
             } else {
-                accionesHTML = `<div class="text-center"><span class="text-xs text-neutral-400 italic">Cerrado</span></div>`;
+                accionesHTML = `<div class="text-center"><span class="text-xs text-[#eaecee]/40 italic">Cerrado</span></div>`;
             }
 
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-[#620f14]/40 transition border-b border-[#a4202e]/20";
+            tr.className = "hover:bg-[#1b253d]/50 transition border-b border-[#00e4fb]/10 text-xs text-[#eaecee]/90";
             tr.innerHTML = `
-                <td class="py-4 px-3 font-bold text-[#e7b263]">#${cot.id}</td>
+                <td class="py-4 px-3 font-bold text-[#00e4fb]">#${cot.id}</td>
                 <td class="py-4 px-3">
-                    <div class="font-semibold text-white truncate max-w-[150px]" title="${nombreCliente}">${nombreCliente}</div>
-                    <div class="text-xs text-[#e7b263]/80 font-mono mt-0.5">📱 ${telefonoCliente}</div>
+                    <div class="font-extrabold text-[#eaecee] truncate max-w-[150px]" title="${nombreCliente}">${nombreCliente}</div>
+                    <div class="text-xs text-[#00e4fb] font-mono mt-0.5">📱 ${telefonoCliente}</div>
                 </td>
-                <td class="py-4 px-3 font-semibold text-white/90">${cot.tipo_evento || 'N/A'}</td>
-                <td class="py-4 px-3 text-white/80">${cot.departamento || ''} ${cot.direccion_exacta ? '- ' + cot.direccion_exacta : ''}</td>
-                <td class="py-4 px-3 text-xs text-white/80 whitespace-nowrap">${cot.fecha_evento || ''}</td>
-                <td class="py-4 px-3 font-bold text-emerald-300 whitespace-nowrap">Bs. ${Number(cot.precio_estimado_total || 0).toFixed(2)}</td>
+                <td class="py-4 px-3 font-bold text-[#eaecee]">${cot.tipo_evento || 'N/A'}</td>
+                <td class="py-4 px-3 text-[#eaecee]/80">${cot.departamento || ''} ${cot.direccion_exacta ? '- ' + cot.direccion_exacta : ''}</td>
+                <td class="py-4 px-3 text-xs text-[#eaecee]/80 whitespace-nowrap">${cot.fecha_evento || ''}</td>
+                <td class="py-4 px-3 font-black text-[#00e4fb] whitespace-nowrap text-sm">Bs. ${Number(cot.precio_estimado_total || 0).toFixed(2)}</td>
                 <td class="py-4 px-3 whitespace-nowrap">${badge}</td>
                 <td class="py-4 px-3 text-center">
                     ${accionesHTML}

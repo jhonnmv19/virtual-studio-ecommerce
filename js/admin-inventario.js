@@ -10,14 +10,14 @@ function cambiarVistaAdmin(vista) {
     const secPaq = document.getElementById('seccion-paquetes');
 
     if (vista === 'productos') {
-        btnProd.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition";
-        btnPaq.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition";
+        btnProd.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer";
+        btnPaq.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer";
         secProd.classList.remove('hidden');
         secPaq.classList.add('hidden');
         inicializarInventario();
     } else {
-        btnPaq.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition";
-        btnProd.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition";
+        btnPaq.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer";
+        btnProd.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer";
         secPaq.classList.remove('hidden');
         secProd.classList.add('hidden');
         inicializarPaquetes();
@@ -45,23 +45,23 @@ async function inicializarInventario() {
         tbody.innerHTML = '';
 
         if (!productos || productos.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="6" class="p-4 text-center text-[#e7b263]/70">No hay equipos registrados en el inventario.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="6" class="p-6 text-center text-[#eaecee]/60">No hay equipos registrados en el inventario.</td></tr>`;
             return;
         }
 
         productos.forEach(prod => {
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-[#620f14]/50 transition border-b border-[#a4202e]/20 text-xs";
+            tr.className = "hover:bg-[#1b253d]/50 transition border-b border-[#00e4fb]/10 text-xs";
             tr.innerHTML = `
-                <td class="p-3.5 text-center font-bold text-[#e7b263]">#${prod.id}</td>
-                <td class="p-3.5 font-semibold text-sm text-white">${prod.nombre}</td>
-                <td class="p-3.5 text-[#fefae2]/80">${prod.especificaciones || 'Sin especificación'}</td>
-                <td class="p-3.5 text-right font-bold text-emerald-300 text-sm">Bs. ${Number(prod.precio_por_jornada || 0).toFixed(2)}</td>
-                <td class="p-3.5 text-center"><span class="px-2.5 py-1 bg-neutral-800 rounded-lg font-bold">${prod.stock_disponible} un.</span></td>
+                <td class="p-3.5 text-center font-bold text-[#00e4fb]">#${prod.id}</td>
+                <td class="p-3.5 font-extrabold text-sm text-[#eaecee]">${prod.nombre}</td>
+                <td class="p-3.5 text-[#eaecee]/75">${prod.especificaciones || 'Sin especificación'}</td>
+                <td class="p-3.5 text-right font-black text-[#00e4fb] text-sm">Bs. ${Number(prod.precio_por_jornada || 0).toFixed(2)}</td>
+                <td class="p-3.5 text-center"><span class="px-3 py-1 bg-[#1b253d] border border-[#00e4fb]/30 rounded-xl font-bold text-[#eaecee]">${prod.stock_disponible} un.</span></td>
                 <td class="p-3.5 text-center">
                     <div class="flex items-center justify-center gap-1.5">
-                        <button onclick='abrirModalEditarProducto(${JSON.stringify(prod)})' class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-600 text-white rounded-lg font-bold transition">Editar</button>
-                        <button onclick="eliminarProducto(${prod.id})" class="px-2.5 py-1 bg-red-700/80 hover:bg-red-700 text-white rounded-lg font-bold transition">Eliminar</button>
+                        <button onclick='abrirModalEditarProducto(${JSON.stringify(prod)})' class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 rounded-xl font-bold transition cursor-pointer">Editar</button>
+                        <button onclick="eliminarProducto(${prod.id})" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl font-bold transition cursor-pointer">Eliminar</button>
                     </div>
                 </td>
             `;
@@ -73,7 +73,7 @@ async function inicializarInventario() {
 }
 
 function abrirModalCrearProducto() {
-    document.getElementById('modal-producto-titulo').innerText = "Nuevo Equipo / Producto";
+    document.getElementById('modal-producto-tituloinnerText').innerText = "Nuevo Equipo / Producto";
     document.getElementById('form-producto').reset();
     document.getElementById('prod-id').value = '';
     document.getElementById('modal-producto').classList.remove('hidden');
@@ -189,22 +189,22 @@ async function inicializarPaquetes() {
         tbody.innerHTML = '';
 
         if (!paquetes || paquetes.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-[#e7b263]/70">No hay paquetes registrados.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-[#eaecee]/60">No hay paquetes registrados en Virtual Studio.</td></tr>`;
             return;
         }
 
         paquetes.forEach(paq => {
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-[#620f14]/50 transition border-b border-[#a4202e]/20 text-xs";
+            tr.className = "hover:bg-[#1b253d]/50 transition border-b border-[#00e4fb]/10 text-xs";
             tr.innerHTML = `
-                <td class="p-3.5 text-center font-bold text-[#e7b263]">#${paq.id}</td>
-                <td class="p-3.5 font-semibold text-sm text-white">${paq.nombre}</td>
-                <td class="p-3.5 text-[#fefae2]/80">${paq.tipo_evento} <span class="text-[#e7b263] font-bold">(${paq.nivel_equipamiento})</span></td>
-                <td class="p-3.5 text-right font-bold text-emerald-300 text-sm">Bs. ${Number(paq.precio_base || 0).toFixed(2)}</td>
+                <td class="p-3.5 text-center font-bold text-[#00e4fb]">#${paq.id}</td>
+                <td class="p-3.5 font-extrabold text-sm text-[#eaecee]">${paq.nombre}</td>
+                <td class="p-3.5 text-[#eaecee]/75">${paq.tipo_evento} <span class="text-[#00e4fb] font-bold">(${paq.nivel_equipamiento})</span></td>
+                <td class="p-3.5 text-right font-black text-[#00e4fb] text-sm">Bs. ${Number(paq.precio_base || 0).toFixed(2)}</td>
                 <td class="p-3.5 text-center">
                     <div class="flex items-center justify-center gap-1.5">
-                        <button onclick='abrirModalEditarPaquete(${JSON.stringify(paq)})' class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-600 text-white rounded-lg font-bold transition">Editar</button>
-                        <button onclick="eliminarPaquete(${paq.id})" class="px-2.5 py-1 bg-red-700/80 hover:bg-red-700 text-white rounded-lg font-bold transition">Eliminar</button>
+                        <button onclick='abrirModalEditarPaquete(${JSON.stringify(paq)})' class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 rounded-xl font-bold transition cursor-pointer">Editar</button>
+                        <button onclick="eliminarPaquete(${paq.id})" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl font-bold transition cursor-pointer">Eliminar</button>
                     </div>
                 </td>
             `;
@@ -264,11 +264,11 @@ function agregarFilaDetallePaquete(productoIdSeleccionado = '', cantidad = 1) {
     });
 
     div.innerHTML = `
-        <select class="select-prod-id flex-1 p-2 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white text-xs focus:outline-none focus:border-[#e7b263]">
+        <select class="select-prod-id flex-1 p-2.5 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] text-xs focus:outline-none focus:border-[#00e4fb] transition">
             ${opciones}
         </select>
-        <input type="number" min="1" value="${cantidad}" class="input-prod-cant w-20 p-2 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white text-xs focus:outline-none focus:border-[#e7b263]" placeholder="Cant.">
-        <button type="button" onclick="this.parentElement.remove()" class="px-2 py-1 bg-red-800 hover:bg-red-700 text-white font-bold rounded-lg">&times;</button>
+        <input type="number" min="1" value="${cantidad}" class="input-prod-cant w-20 p-2.5 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] text-xs focus:outline-none focus:border-[#00e4fb] transition text-center" placeholder="Cant.">
+        <button type="button" onclick="this.parentElement.remove()" class="px-3 py-2 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 font-extrabold rounded-xl transition cursor-pointer">&times;</button>
     `;
     contenedor.appendChild(div);
 }

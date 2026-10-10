@@ -1,67 +1,68 @@
 @import "https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css";
 
 :root {
-  --color-primary: #a4202e;     /* Rojo Carmesí */
-  --color-dark: #2d080a;        /* Fondo Vino Oscuro */
-  --color-dropdown: #620f14;    /* Vino Elegante */
-  --color-mustard: #e7b263;     /* Amarillo Mostaza */
-  --color-cream: #fefae2;       /* Crema / Marfil */
+  --color-primary: #00e4fb;    /* Cian Brillante */
+  --color-dark: #1b253d;       /* Fondo Azul Oscuro */
+  --color-dropdown: #002184;   /* Azul Marino Elegante */
+  --color-accent: #cdf9fe;     /* Cian Claro / Destacados */
+  --color-light: #eaecee;      /* Gris Claro / Marfil */
 }
 
 body {
   background-color: var(--color-dark);
-  color: var(--color-cream);
+  color: var(--color-light);
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
 }
 
-/* Fondo claro/marfil (#fefae2) solicitado para Catálogo y Cotizador */
+/* Fondo claro solicitado para Catálogo y Cotizador */
 .bg-cream-theme {
-  background-color: #fefae2;
-  color: #2d080a;
+  background-color: #eaecee;
+  color: #1b253d;
 }
 
 /* Colores personalizados */
-.bg-carmesi { background-color: #a4202e; }
-.text-carmesi { color: #a4202e; }
-.border-carmesi { border-color: #a4202e; }
+.bg-primary-custom { background-color: #00e4fb; }
+.text-primary-custom { color: #00e4fb; }
+.border-primary-custom { border-color: #00e4fb; }
 
-.bg-dark-custom { background-color: #2d080a; }
-.bg-dropdown-custom { background-color: #620f14; }
-.bg-mustard-custom { background-color: #e7b263; }
-.text-mustard-custom { color: #e7b263; }
-.text-cream-custom { color: #fefae2; }
+.bg-dark-custom { background-color: #1b253d; }
+.bg-dropdown-custom { background-color: #002184; }
+.bg-accent-custom { background-color: #cdf9fe; }
+.text-accent-custom { color: #cdf9fe; }
+.text-light-custom { color: #eaecee; }
 
 /* Botones interactivos */
-.btn-carmesi {
-  background-color: #a4202e;
-  color: #fefae2;
+.btn-primary-custom {
+  background-color: #00e4fb;
+  color: #1b253d;
+  font-weight: bold;
   transition: all 0.3s ease;
 }
-.btn-carmesi:hover {
-  background-color: #831823;
+.btn-primary-custom:hover {
+  background-color: #cdf9fe;
   transform: translateY(-2px);
-  box-shadow: 0 10px 15px -3px rgba(164, 32, 46, 0.4);
+  box-shadow: 0 10px 15px -3px rgba(0, 228, 251, 0.4);
 }
 
-.btn-outline-cream {
-  border: 2px solid #fefae2;
-  color: #fefae2;
+.btn-outline-light {
+  border: 2px solid #eaecee;
+  color: #eaecee;
   transition: all 0.3s ease;
 }
-.btn-outline-cream:hover {
-  background-color: #fefae2;
-  color: #2d080a;
+.btn-outline-light:hover {
+  background-color: #eaecee;
+  color: #1b253d;
   transform: translateY(-2px);
 }
 
 /* Tarjetas y Efectos */
 .card-hover {
   transition: all 0.3s ease;
-  border: 1px solid rgba(164, 32, 46, 0.3);
+  border: 1px solid rgba(0, 228, 251, 0.2);
 }
 .card-hover:hover {
   transform: translateY(-5px);
-  border-color: #a4202e;
+  border-color: #00e4fb;
   box-shadow: 0 12px 20px -5px rgba(0, 0, 0, 0.5);
 }
 

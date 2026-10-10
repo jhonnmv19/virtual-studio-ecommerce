@@ -10,26 +10,26 @@ async function inicializarUsuarios() {
         tbody.innerHTML = '';
 
         if (error || !usuarios || usuarios.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-[#e7b263]/70">No hay usuarios registrados.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-[#eaecee]/60">No hay usuarios registrados en Virtual Studio.</td></tr>`;
             return;
         }
 
         usuarios.forEach(user => {
             const rolBadge = user.rol === 'admin' 
-                ? `<span class="px-2.5 py-1 bg-rose-500/20 text-rose-400 border border-rose-500/30 rounded-lg text-xs font-bold uppercase">Admin</span>`
-                : `<span class="px-2.5 py-1 bg-blue-500/20 text-blue-400 border border-blue-500/30 rounded-lg text-xs font-bold uppercase">Cliente</span>`;
+                ? `<span class="px-3 py-1 bg-rose-500/20 text-rose-300 border border-rose-500/40 rounded-xl text-xs font-extrabold uppercase">Admin</span>`
+                : `<span class="px-3 py-1 bg-[#00e4fb]/20 text-[#00e4fb] border border-[#00e4fb]/40 rounded-xl text-xs font-extrabold uppercase">Cliente</span>`;
 
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-[#620f14]/50 transition border-b border-[#a4202e]/20 text-xs";
+            tr.className = "hover:bg-[#1b253d]/50 transition border-b border-[#00e4fb]/10 text-xs text-[#eaecee]/90";
             tr.innerHTML = `
-                <td class="p-3.5 font-semibold text-sm text-white">${user.nombre_completo}</td>
-                <td class="p-3.5 text-[#e7b263] font-mono">${user.correo}</td>
-                <td class="p-3.5 text-[#fefae2]/80">${user.telefono || 'N/A'}</td>
+                <td class="p-3.5 font-extrabold text-sm text-[#eaecee]">${user.nombre_completo}</td>
+                <td class="p-3.5 text-[#00e4fb] font-mono">${user.correo}</td>
+                <td class="p-3.5 text-[#eaecee]/75">${user.telefono || 'N/A'}</td>
                 <td class="p-3.5 text-center">${rolBadge}</td>
                 <td class="p-3.5 text-center">
                     <div class="flex items-center justify-center gap-1.5">
-                        <button onclick='abrirModalEditarUsuario(${JSON.stringify(user)})' class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-600 text-white rounded-lg font-bold transition">Editar</button>
-                        <button onclick="eliminarUsuario('${user.id}')" class="px-2.5 py-1 bg-red-700/80 hover:bg-red-700 text-white rounded-lg font-bold transition">Eliminar</button>
+                        <button onclick='abrirModalEditarUsuario(${JSON.stringify(user)})' class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 rounded-xl font-bold transition cursor-pointer">Editar</button>
+                        <button onclick="eliminarUsuario('${user.id}')" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl font-bold transition cursor-pointer">Eliminar</button>
                     </div>
                 </td>
             `;

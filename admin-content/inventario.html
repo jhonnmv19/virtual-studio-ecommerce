@@ -1,19 +1,19 @@
-<div class="bg-[#620f14] border border-[#a4202e]/40 rounded-2xl p-6 shadow-xl space-y-6 text-[#fefae2] w-full max-w-7xl mx-auto">
+<div class="bg-[#12192a] border border-[#00e4fb]/30 rounded-2xl p-6 md:p-8 shadow-2xl space-y-6 text-[#eaecee] w-full max-w-7xl mx-auto">
     <!-- Cabecera alineada y simétrica -->
-    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#a4202e]/40 pb-4">
+    <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 border-b border-[#00e4fb]/20 pb-4">
         <div>
-            <h2 class="text-xl font-bold text-[#e7b263] uppercase tracking-wide">Gestión de Inventario y Paquetes</h2>
-            <p class="text-xs text-[#e7b263]/70">Sistema Administrativo CRUD - Service Euros Bolivia</p>
+            <h2 class="text-xl font-extrabold text-[#eaecee] uppercase tracking-wide">Gestión de Inventario y Paquetes</h2>
+            <p class="text-xs text-[#eaecee]/60 mt-0.5">Sistema Administrativo CRUD - Virtual Studio Bolivia</p>
         </div>
         <div class="flex items-center gap-2 w-full sm:w-auto">
-            <button onclick="cambiarVistaAdmin('productos')" id="btn-tab-productos" class="flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition">
+            <button onclick="cambiarVistaAdmin('productos')" id="btn-tab-productos" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer">
                 Equipos / Productos
             </button>
-            <button onclick="cambiarVistaAdmin('paquetes')" id="btn-tab-paquetes" class="flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition">
+            <button onclick="cambiarVistaAdmin('paquetes')" id="btn-tab-paquetes" class="flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer">
                 Paquetes
             </button>
-            <button onclick="abrirModalCrearActual()" class="px-4 py-2 text-xs font-bold rounded-xl bg-emerald-600 text-white hover:bg-emerald-500 transition flex items-center justify-center gap-1 shadow">
-                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
+            <button onclick="abrirModalCrearActual()" class="px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] hover:bg-[#cdf9fe] transition flex items-center justify-center gap-1.5 shadow-lg cursor-pointer">
+                <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M12 4v16m8-8H4"></path></svg>
                 Nuevo
             </button>
         </div>
@@ -21,10 +21,10 @@
 
     <!-- SECCIÓN 1: PRODUCTOS / EQUIPOS -->
     <div id="seccion-productos" class="space-y-4">
-        <div class="overflow-x-auto rounded-xl border border-[#a4202e]/30 bg-black/10">
+        <div class="overflow-x-auto rounded-xl border border-[#00e4fb]/20 bg-[#1b253d]/50">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b border-[#a4202e]/40 text-xs text-[#e7b263] uppercase bg-[#620f14]/80">
+                    <tr class="border-b border-[#00e4fb]/30 text-xs text-[#00e4fb] uppercase bg-[#12192a]/80">
                         <th class="p-3.5 w-16 text-center">ID</th>
                         <th class="p-3.5 w-1/4">Equipo</th>
                         <th class="p-3.5">Especificaciones (Resumen)</th>
@@ -33,7 +33,7 @@
                         <th class="p-3.5 w-36 text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-inventario-contenido" class="divide-y divide-[#a4202e]/20 text-sm">
+                <tbody id="tabla-inventario-contenido" class="divide-y divide-[#00e4fb]/10 text-sm text-[#eaecee]/90">
                     <!-- JS inyecta las filas -->
                 </tbody>
             </table>
@@ -42,10 +42,10 @@
 
     <!-- SECCIÓN 2: PAQUETES PRECONFIGURADOS -->
     <div id="seccion-paquetes" class="space-y-4 hidden">
-        <div class="overflow-x-auto rounded-xl border border-[#a4202e]/30 bg-black/10">
+        <div class="overflow-x-auto rounded-xl border border-[#00e4fb]/20 bg-[#1b253d]/50">
             <table class="w-full text-left border-collapse">
                 <thead>
-                    <tr class="border-b border-[#a4202e]/40 text-xs text-[#e7b263] uppercase bg-[#620f14]/80">
+                    <tr class="border-b border-[#00e4fb]/30 text-xs text-[#00e4fb] uppercase bg-[#12192a]/80">
                         <th class="p-3.5 w-16 text-center">ID</th>
                         <th class="p-3.5 w-1/4">Nombre Paquete</th>
                         <th class="p-3.5">Tipo Evento / Nivel</th>
@@ -53,7 +53,7 @@
                         <th class="p-3.5 w-36 text-center">Acciones</th>
                     </tr>
                 </thead>
-                <tbody id="tabla-paquetes-contenido" class="divide-y divide-[#a4202e]/20 text-sm">
+                <tbody id="tabla-paquetes-contenido" class="divide-y divide-[#00e4fb]/10 text-sm text-[#eaecee]/90">
                     <!-- JS inyecta las filas -->
                 </tbody>
             </table>
@@ -63,65 +63,65 @@
 
 <!-- MODAL 1: PRODUCTO / EQUIPO (UNIFICADO) -->
 <div id="modal-producto" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-[#620f14] border border-[#e7b263]/40 rounded-2xl w-full max-w-2xl p-6 shadow-2xl space-y-4 text-[#fefae2] max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center border-b border-[#a4202e]/40 pb-3">
-            <h3 id="modal-producto-titulo" class="text-lg font-bold text-[#e7b263]">Gestión de Equipo</h3>
-            <button onclick="cerrarModales()" class="text-[#e7b263] hover:text-white font-bold text-xl">&times;</button>
+    <div class="bg-[#12192a] border border-[#00e4fb]/40 rounded-2xl w-full max-w-2xl p-6 md:p-8 shadow-2xl space-y-5 text-[#eaecee] max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-[#00e4fb]/20 pb-3">
+            <h3 id="modal-producto-titulo" class="text-lg font-extrabold text-[#eaecee]">Gestión de Equipo</h3>
+            <button onclick="cerrarModales()" class="text-[#eaecee]/60 hover:text-[#00e4fb] font-bold text-xl cursor-pointer">&times;</button>
         </div>
         <form id="form-producto" onsubmit="guardarProducto(event)" class="space-y-4 text-xs">
             <input type="hidden" id="prod-id">
 
             <!-- Datos Principales del Producto -->
             <div class="space-y-3">
-                <h4 class="font-bold text-[#e7b263] text-sm uppercase tracking-wide border-b border-[#a4202e]/30 pb-1">Información General</h4>
+                <h4 class="font-bold text-[#00e4fb] text-xs uppercase tracking-wider border-b border-[#00e4fb]/20 pb-1">Información General</h4>
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-3">
                     <div class="md:col-span-2">
-                        <label class="block font-semibold text-[#e7b263] mb-1">Nombre del Equipo *</label>
-                        <input type="text" id="prod-nombre" required class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Nombre del Equipo *</label>
+                        <input type="text" id="prod-nombre" required class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                     <div>
-                        <label class="block font-semibold text-[#e7b263] mb-1">Stock Disponible *</label>
-                        <input type="number" id="prod-stock" required min="0" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Stock Disponible *</label>
+                        <input type="number" id="prod-stock" required min="0" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                        <label class="block font-semibold text-[#e7b263] mb-1">Precio por Jornada (Bs.) *</label>
-                        <input type="number" step="0.01" id="prod-precio" required min="0" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Precio por Jornada (Bs.) *</label>
+                        <input type="number" step="0.01" id="prod-precio" required min="0" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                     <div>
-                        <label class="block font-semibold text-[#e7b263] mb-1">Resumen / Título Breve</label>
-                        <input type="text" id="prod-especificaciones" placeholder="Ej: Sistema de audio Line Array" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Resumen / Título Breve</label>
+                        <input type="text" id="prod-especificaciones" placeholder="Ej: Sistema de audio Line Array" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                 </div>
             </div>
 
             <!-- Especificaciones Técnicas Avanzadas -->
             <div class="space-y-3 pt-2">
-                <h4 class="font-bold text-[#e7b263] text-sm uppercase tracking-wide border-b border-[#a4202e]/30 pb-1">Especificaciones Técnicas Detalladas</h4>
+                <h4 class="font-bold text-[#00e4fb] text-xs uppercase tracking-wider border-b border-[#00e4fb]/20 pb-1">Especificaciones Técnicas Detalladas</h4>
                 <div>
-                    <label class="block text-[#fefae2]/80 mb-1">Componentes Principales</label>
-                    <input type="text" id="tech-componentes" placeholder="Ej: 2 agudos, 2 parlantes de 10 pulgadas..." class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                    <label class="block font-bold text-[#eaecee]/80 mb-1">Componentes Principales</label>
+                    <input type="text" id="tech-componentes" placeholder="Ej: 2 agudos, 2 parlantes de 10 pulgadas..." class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
                 </div>
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                     <div>
-                        <label class="block text-[#fefae2]/80 mb-1">Consumo Energético / Combustible</label>
-                        <input type="text" id="tech-consumo" placeholder="Ej: 50L/día o 1500W" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#eaecee]/80 mb-1">Consumo Energético / Combustible</label>
+                        <input type="text" id="tech-consumo" placeholder="Ej: 50L/día o 1500W" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                     <div>
-                        <label class="block text-[#fefae2]/80 mb-1">Potencia / Rendimiento</label>
-                        <input type="text" id="tech-potencia" placeholder="Ej: 100 kW / High Lumens" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                        <label class="block font-bold text-[#eaecee]/80 mb-1">Potencia / Rendimiento</label>
+                        <input type="text" id="tech-potencia" placeholder="Ej: 100 kW / High Lumens" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
                     </div>
                 </div>
                 <div>
-                    <label class="block text-[#fefae2]/80 mb-1">Observaciones Extra</label>
-                    <textarea id="tech-obs" rows="2" placeholder="Ej: Requiere transporte refrigerado o líquido especial" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]"></textarea>
+                    <label class="block font-bold text-[#eaecee]/80 mb-1">Observaciones Extra</label>
+                    <textarea id="tech-obs" rows="2" placeholder="Ej: Requiere transporte refrigerado o líquido especial" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm"></textarea>
                 </div>
             </div>
 
-            <div class="flex justify-end gap-2 pt-3 border-t border-[#a4202e]/40">
-                <button type="button" onclick="cerrarModales()" class="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold">Cancelar</button>
-                <button type="submit" class="px-5 py-2 rounded-xl bg-[#e7b263] text-[#620f14] font-bold hover:bg-amber-400 shadow">Guardar Cambios</button>
+            <div class="flex justify-end gap-2 pt-3 border-t border-[#00e4fb]/20">
+                <button type="button" onclick="cerrarModales()" class="px-4 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs cursor-pointer transition">Cancelar</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#00e4fb] text-[#12192a] font-extrabold hover:bg-[#cdf9fe] shadow-md text-xs cursor-pointer transition">Guardar Cambios</button>
             </div>
         </form>
     </div>
@@ -129,50 +129,50 @@
 
 <!-- MODAL 2: PAQUETE (CONFIGURACIÓN DESGLOSADA) -->
 <div id="modal-paquete" class="fixed inset-0 bg-black/80 backdrop-blur-sm hidden z-50 flex items-center justify-center p-4">
-    <div class="bg-[#620f14] border border-[#e7b263]/40 rounded-2xl w-full max-w-2xl p-6 shadow-2xl space-y-4 text-[#fefae2] max-h-[90vh] overflow-y-auto">
-        <div class="flex justify-between items-center border-b border-[#a4202e]/40 pb-3">
-            <h3 id="modal-paquete-titulo" class="text-lg font-bold text-[#e7b263]">Configuración de Paquete</h3>
-            <button onclick="cerrarModales()" class="text-[#e7b263] hover:text-white font-bold text-xl">&times;</button>
+    <div class="bg-[#12192a] border border-[#00e4fb]/40 rounded-2xl w-full max-w-2xl p-6 md:p-8 shadow-2xl space-y-5 text-[#eaecee] max-h-[90vh] overflow-y-auto">
+        <div class="flex justify-between items-center border-b border-[#00e4fb]/20 pb-3">
+            <h3 id="modal-paquete-titulo" class="text-lg font-extrabold text-[#eaecee]">Configuración de Paquete</h3>
+            <button onclick="cerrarModales()" class="text-[#eaecee]/60 hover:text-[#00e4fb] font-bold text-xl cursor-pointer">&times;</button>
         </div>
         <form id="form-paquete" onsubmit="guardarPaquete(event)" class="space-y-4 text-xs">
             <input type="hidden" id="paq-id">
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                    <label class="block font-semibold text-[#e7b263] mb-1">Nombre del Paquete *</label>
-                    <input type="text" id="paq-nombre" required class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                    <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Nombre del Paquete *</label>
+                    <input type="text" id="paq-nombre" required class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                 </div>
                 <div>
-                    <label class="block font-semibold text-[#e7b263] mb-1">Tipo de Evento *</label>
-                    <input type="text" id="paq-tipo-evento" required placeholder="Ej: Bodas, Conciertos" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                    <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Tipo de Evento *</label>
+                    <input type="text" id="paq-tipo-evento" required placeholder="Ej: Bodas, Conciertos" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm">
                 </div>
             </div>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-3">
                 <div>
-                    <label class="block font-semibold text-[#e7b263] mb-1">Nivel de Equipamiento *</label>
-                    <select id="paq-nivel" required class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                    <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Nivel de Equipamiento *</label>
+                    <select id="paq-nivel" required class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                         <option value="salon_cerrado">Salón Cerrado</option>
                         <option value="mediano">Mediano</option>
                         <option value="premium_masivo">Premium Masivo</option>
                     </select>
                 </div>
                 <div>
-                    <label class="block font-semibold text-[#e7b263] mb-1">Precio Base (Bs.) *</label>
-                    <input type="number" step="0.01" id="paq-precio" required min="0" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]">
+                    <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Precio Base (Bs.) *</label>
+                    <input type="number" step="0.01" id="paq-precio" required min="0" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] focus:outline-none focus:border-[#00e4fb] transition text-sm">
                 </div>
             </div>
 
             <div>
-                <label class="block font-semibold text-[#e7b263] mb-1">Descripción General</label>
-                <textarea id="paq-descripcion" rows="2" class="w-full p-2.5 rounded-lg bg-neutral-900 border border-[#a4202e]/50 text-white focus:outline-none focus:border-[#e7b263]"></textarea>
+                <label class="block font-bold text-[#00e4fb] uppercase tracking-wider mb-1">Descripción General</label>
+                <textarea id="paq-descripcion" rows="2" class="w-full p-3 rounded-xl bg-[#1b253d] border border-[#00e4fb]/40 text-[#eaecee] placeholder-[#eaecee]/40 focus:outline-none focus:border-[#00e4fb] transition text-sm"></textarea>
             </div>
 
             <!-- Desglose de Equipos incluidos en el paquete -->
-            <div class="space-y-2 pt-2 border-t border-[#a4202e]/30">
+            <div class="space-y-2 pt-2 border-t border-[#00e4fb]/20">
                 <div class="flex justify-between items-center">
-                    <h4 class="font-bold text-[#e7b263] text-sm uppercase tracking-wide">Desglose de Equipos Incluidos</h4>
-                    <button type="button" onclick="agregarFilaDetallePaquete()" class="px-2.5 py-1 text-xs bg-emerald-600 hover:bg-emerald-500 rounded-lg text-white font-bold flex items-center gap-1">
+                    <h4 class="font-bold text-[#00e4fb] text-xs uppercase tracking-wider">Desglose de Equipos Incluidos</h4>
+                    <button type="button" onclick="agregarFilaDetallePaquete()" class="px-3 py-1.5 text-xs bg-[#00e4fb] hover:bg-[#cdf9fe] rounded-xl text-[#12192a] font-extrabold flex items-center gap-1 shadow cursor-pointer transition">
                         + Añadir Equipo
                     </button>
                 </div>
@@ -181,9 +181,9 @@
                 </div>
             </div>
 
-            <div class="flex justify-end gap-2 pt-3 border-t border-[#a4202e]/40">
-                <button type="button" onclick="cerrarModales()" class="px-4 py-2 rounded-xl bg-neutral-800 hover:bg-neutral-700 text-neutral-300 font-bold">Cancelar</button>
-                <button type="submit" class="px-5 py-2 rounded-xl bg-[#e7b263] text-[#620f14] font-bold hover:bg-amber-400 shadow">Guardar Paquete</button>
+            <div class="flex justify-end gap-2 pt-3 border-t border-[#00e4fb]/20">
+                <button type="button" onclick="cerrarModales()" class="px-4 py-2.5 rounded-xl bg-slate-700 hover:bg-slate-600 text-white font-bold text-xs cursor-pointer transition">Cancelar</button>
+                <button type="submit" class="px-5 py-2.5 rounded-xl bg-[#00e4fb] text-[#12192a] font-extrabold hover:bg-[#cdf9fe] shadow-md text-xs cursor-pointer transition">Guardar Paquete</button>
             </div>
         </form>
     </div>

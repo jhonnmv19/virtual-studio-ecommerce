@@ -59,12 +59,11 @@ async function loadTarifasTransporte() {
       tarifasGlobales = {}; // Reiniciar diccionario global
 
       tarifas.forEach(tarifa => {
-        // Guardamos la tarifa en un objeto global indexada por su ID y nombre de zona
         tarifasGlobales[tarifa.id] = tarifa;
         tarifasGlobales[tarifa.departamento_o_zona] = tarifa;
 
         const option = document.createElement('option');
-        option.value = tarifa.id; // Guardamos el ID de la tarifa como valor principal
+        option.value = tarifa.id;
         option.dataset.zona = tarifa.departamento_o_zona;
         option.dataset.costo = tarifa.costo_base_flete;
         option.dataset.permiteCliente = tarifa.permite_transporte_cliente;
@@ -146,9 +145,9 @@ function renderCotizadorItems() {
 
   if (items.length === 0) {
     container.innerHTML = `
-      <div class="text-center py-6 text-[#fefae2]/70">
+      <div class="text-center py-6 text-[#eaecee]/70">
         <p class="mb-3">No has seleccionado ningún equipo o paquete todavía.</p>
-        <a href="catalogo.html" class="inline-block bg-[#e7b263] text-[#2d080a] px-4 py-2 rounded-lg font-bold text-sm hover:bg-[#d49f50] transition">
+        <a href="catalogo.html" class="inline-block bg-[#00e4fb] text-[#12192a] px-4 py-2 rounded-lg font-bold text-sm hover:bg-white transition">
           Ir a explorar el Catálogo
         </a>
       </div>
@@ -158,9 +157,9 @@ function renderCotizadorItems() {
 
   container.innerHTML = `
     <div class="overflow-x-auto">
-      <table class="w-full text-left text-sm">
+      <table class="w-full text-left text-sm text-[#eaecee]">
         <thead>
-          <tr class="border-b border-[#a4202e]/40 text-[#e7b263]">
+          <tr class="border-b border-[#00e4fb]/30 text-[#00e4fb]">
             <th class="py-2">Equipo / Paquete</th>
             <th class="py-2 text-center">Cantidad</th>
             <th class="py-2 text-right">Precio U.</th>
@@ -168,17 +167,17 @@ function renderCotizadorItems() {
             <th class="py-2 text-center">Acción</th>
           </tr>
         </thead>
-        <tbody class="divide-y divide-[#a4202e]/20">
+        <tbody class="divide-y divide-[#00e4fb]/20">
           ${items.map((item, index) => `
             <tr>
               <td class="py-3 font-medium">${item.nombre}</td>
               <td class="py-3 text-center">
-                <input type="number" min="1" value="${item.cantidad}" onchange="updateQuantity(${index}, this.value)" class="w-16 bg-[#2d080a] border border-[#a4202e] rounded text-center text-[#fefae2] py-1 focus:outline-none focus:border-[#e7b263]">
+                <input type="number" min="1" value="${item.cantidad}" onchange="updateQuantity(${index}, this.value)" class="w-16 bg-[#1b253d] border border-[#00e4fb]/40 rounded text-center text-[#eaecee] py-1 focus:outline-none focus:border-[#00e4fb]">
               </td>
               <td class="py-3 text-right">Bs. ${parseFloat(item.precio).toFixed(2)}</td>
-              <td class="py-3 text-right font-bold text-[#e7b263]">Bs. ${(parseFloat(item.precio) * parseInt(item.cantidad)).toFixed(2)}</td>
+              <td class="py-3 text-right font-bold text-[#00e4fb]">Bs. ${(parseFloat(item.precio) * parseInt(item.cantidad)).toFixed(2)}</td>
               <td class="py-3 text-center">
-                <button type="button" onclick="removeItem(${index})" class="text-red-400 hover:text-red-300 font-bold px-2 py-1 text-xs bg-red-950/40 rounded border border-red-900/50 transition">Eliminar</button>
+                <button type="button" onclick="removeItem(${index})" class="text-rose-300 hover:text-white font-bold px-2 py-1 text-xs bg-rose-950/40 rounded border border-rose-500/30 transition">Eliminar</button>
               </td>
             </tr>
           `).join('')}
@@ -225,7 +224,6 @@ function calculateTotals() {
     }
   }
 
-  // Si el cliente marca que el transporte corre por su cuenta, el flete se anula (Bs. 0.00)
   const aCargoCliente = transporteClienteCheckbox ? transporteClienteCheckbox.checked : false;
   if (aCargoCliente) {
     costoFlete = 0.00;
@@ -252,8 +250,8 @@ function showNotification(message, type = 'success') {
   notification.id = 'custom-notification';
   notification.className = `fixed bottom-6 right-6 z-50 px-6 py-4 rounded-xl shadow-2xl text-sm font-bold border transition-all duration-300 transform translate-y-2 opacity-0 ${
     type === 'success' 
-      ? 'bg-[#1a4d2e] text-[#fefae2] border-[#2e7d32]' 
-      : 'bg-[#620f14] text-[#fefae2] border-[#a4202e]'
+      ? 'bg-[#12192a] text-[#00e4fb] border-[#00e4fb]/40' 
+      : 'bg-[#12192a] text-rose-300 border-rose-500/40'
   }`;
   notification.textContent = message;
 
@@ -272,7 +270,6 @@ function showNotification(message, type = 'success') {
  * Envía la cotización validando autenticación, campos obligatorios y registrando en Supabase
  */
 async function submitCotizacion() {
-  // Validación estricta de sesión de usuario (Autenticación)
   const user = getCurrentUser();
   if (!user) {
     showNotification('Por favor inicia sesión o regístrate antes de enviar tu solicitud.', 'error');
@@ -289,7 +286,6 @@ async function submitCotizacion() {
     return;
   }
 
-  // Capturar campos del formulario asegurando llenado correcto
   const tipoEvento = document.getElementById('tipo_evento')?.value;
   const fechaEvento = document.getElementById('fecha_evento')?.value;
   const horaInicio = document.getElementById('hora_inicio')?.value;
@@ -300,16 +296,13 @@ async function submitCotizacion() {
     return;
   }
 
-  // Obtener el nombre del departamento/zona según la tarifa seleccionada
   const tarifaInfo = tarifasGlobales[tarifaId];
   const departamentoNombre = tarifaInfo ? tarifaInfo.departamento_o_zona : 'Cochabamba';
 
-  // Paquete principal opcional
   const paqueteItem = items.find(i => i.esPaquete);
   const paqueteIdDb = paqueteItem ? paqueteItem.paquete_db_id : null;
 
   try {
-    // 1. Insertar la cotización principal vinculando las columnas de tu esquema SQL
     const { data: cotizacion, error: cotError } = await window.supabaseClient
       .from('cotizaciones_service_euros')
       .insert([
@@ -326,7 +319,7 @@ async function submitCotizacion() {
           precio_estimado_total: total,
           estado: 'en_revision',
           transporte_a_cargo_cliente: aCargoCliente,
-          tarifa_transporte_id: parseInt(tarifaId)
+          tarifas_transporte_id: parseInt(tarifaId)
         }
       ])
       .select()
@@ -334,7 +327,6 @@ async function submitCotizacion() {
 
     if (cotError) throw cotError;
 
-    // 2. Insertar los ítems individuales en 'cotizacion_items_service_euros'
     const productosIndividuales = items.filter(i => !i.esPaquete);
     if (productosIndividuales.length > 0) {
       const itemsPayload = productosIndividuales.map(item => ({
@@ -351,7 +343,6 @@ async function submitCotizacion() {
       if (itemsError) throw itemsError;
     }
 
-    // Limpiar carrito local
     localStorage.removeItem('cotizacion_items');
 
     showNotification(`¡Cotización enviada exitosamente, ${user.nombre_completo}! Nos pondremos en contacto para confirmar tu evento.`);

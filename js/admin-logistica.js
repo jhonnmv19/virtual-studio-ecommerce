@@ -9,14 +9,14 @@ function cambiarVistaLogistica(vista) {
     const secTar = document.getElementById('seccion-tarifas');
 
     if (vista === 'despachos') {
-        btnDesp.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition";
-        btnTar.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition";
+        btnDesp.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer";
+        btnTar.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer";
         secDesp.classList.remove('hidden');
         secTar.classList.add('hidden');
         inicializarLogistica();
     } else {
-        btnTar.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-[#e7b263] text-[#620f14] shadow transition";
-        btnDesp.className = "flex-1 sm:flex-none px-4 py-2 text-xs font-bold rounded-xl bg-neutral-900/80 text-[#e7b263] border border-[#e7b263]/30 hover:bg-neutral-800 transition";
+        btnTar.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-extrabold rounded-xl bg-[#00e4fb] text-[#12192a] shadow-lg transition cursor-pointer";
+        btnDesp.className = "flex-1 sm:flex-none px-4 py-2.5 text-xs font-bold rounded-xl bg-[#1b253d] text-[#eaecee]/80 border border-[#00e4fb]/30 hover:text-[#00e4fb] transition cursor-pointer";
         secTar.classList.remove('hidden');
         secDesp.classList.add('hidden');
         inicializarTarifasTransporte();
@@ -44,7 +44,7 @@ async function inicializarLogistica() {
         if (!container) return;
 
         if (error || !aprobados || aprobados.length === 0) {
-            container.innerHTML = `<div class="col-span-full p-6 text-center bg-black/10 border border-[#a4202e]/30 rounded-xl"><p class="text-[#e7b263]/70 italic">No hay eventos aprobados pendientes de logística en este momento.</p></div>`;
+            container.innerHTML = `<div class="col-span-full p-6 text-center bg-[#1b253d]/50 border border-[#00e4fb]/20 rounded-2xl"><p class="text-[#eaecee]/60 italic text-sm">No hay eventos aprobados pendientes de logística en este momento en Virtual Studio.</p></div>`;
             return;
         }
 
@@ -52,20 +52,20 @@ async function inicializarLogistica() {
         aprobados.forEach(ev => {
             const tarifaZona = ev.tarifas_transporte_service_euros?.departamento_o_zona || ev.departamento;
             html += `
-                <div class="bg-[#240608] border border-[#a4202e]/40 p-4 rounded-xl space-y-3 flex flex-col justify-between shadow-md">
-                    <div class="space-y-2">
-                        <div class="flex justify-between items-center border-b border-[#a4202e]/30 pb-2">
-                            <span class="text-xs font-bold text-[#e7b263]">EVENTO #${ev.id} - ${ev.tipo_evento}</span>
-                            <span class="text-xs bg-emerald-500/20 text-emerald-400 font-semibold px-2.5 py-1 rounded-lg">${ev.fecha_evento} (${ev.hora_inicio})</span>
+                <div class="bg-[#1b253d] border border-[#00e4fb]/30 p-5 rounded-2xl space-y-4 flex flex-col justify-between shadow-xl">
+                    <div class="space-y-3">
+                        <div class="flex justify-between items-center border-b border-[#00e4fb]/20 pb-3">
+                            <span class="text-xs font-extrabold text-[#00e4fb] uppercase tracking-wider">EVENTO #${ev.id} - ${ev.tipo_evento}</span>
+                            <span class="text-xs bg-emerald-500/20 text-emerald-300 border border-emerald-500/40 font-bold px-3 py-1 rounded-xl">${ev.fecha_evento} (${ev.hora_inicio})</span>
                         </div>
-                        <div class="text-xs space-y-1">
-                            <p class="text-white"><strong>Destino / Zona:</strong> <span class="text-[#e7b263]">${tarifaZona}</span></p>
-                            <p class="text-[#fefae2]/80"><strong>Dirección exacta:</strong> ${ev.direccion_exacta || 'Sin dirección exacta registrada'}</p>
-                            <p class="text-emerald-300 font-bold pt-1"><strong>Costo Flete Asignado:</strong> Bs. ${Number(ev.costo_flete || 0).toFixed(2)}</p>
+                        <div class="text-xs space-y-2">
+                            <p class="text-[#eaecee]/90"><strong>Destino / Zona:</strong> <span class="text-[#00e4fb] font-bold">${tarifaZona}</span></p>
+                            <p class="text-[#eaecee]/75"><strong>Dirección exacta:</strong> ${ev.direccion_exacta || 'Sin dirección exacta registrada'}</p>
+                            <p class="text-[#00e4fb] font-black pt-1 text-sm"><strong>Costo Flete Asignado:</strong> Bs. ${Number(ev.costo_flete || 0).toFixed(2)}</p>
                         </div>
                     </div>
-                    <div class="pt-2 border-t border-[#a4202e]/30 flex justify-end">
-                        <button onclick='abrirModalFlete(${JSON.stringify(ev)})' class="px-3 py-1.5 bg-amber-600/80 hover:bg-amber-600 text-white rounded-lg text-xs font-bold transition shadow">
+                    <div class="pt-3 border-t border-[#00e4fb]/20 flex justify-end">
+                        <button onclick='abrirModalFlete(${JSON.stringify(ev)})' class="px-3.5 py-2 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 rounded-xl text-xs font-extrabold transition shadow cursor-pointer">
                             Modificar Flete / Zona
                         </button>
                     </div>
@@ -151,22 +151,22 @@ async function inicializarTarifasTransporte() {
         tbody.innerHTML = '';
 
         if (!tarifas || tarifas.length === 0) {
-            tbody.innerHTML = `<tr><td colspan="5" class="p-4 text-center text-[#e7b263]/70">No hay zonas o tarifas de transporte registradas.</td></tr>`;
+            tbody.innerHTML = `<tr><td colspan="5" class="p-6 text-center text-[#eaecee]/60">No hay zonas o tarifas de transporte registradas en Virtual Studio.</td></tr>`;
             return;
         }
 
         tarifas.forEach(t => {
             const tr = document.createElement('tr');
-            tr.className = "hover:bg-[#620f14]/50 transition border-b border-[#a4202e]/20 text-xs";
+            tr.className = "hover:bg-[#1b253d]/50 transition border-b border-[#00e4fb]/10 text-xs text-[#eaecee]/90";
             tr.innerHTML = `
-                <td class="p-3.5 text-center font-bold text-[#e7b263]">#${t.id}</td>
-                <td class="p-3.5 font-semibold text-sm text-white">${t.departamento_o_zona}</td>
-                <td class="p-3.5 text-right font-bold text-emerald-300 text-sm">Bs. ${Number(t.costo_base_flete || 0).toFixed(2)}</td>
-                <td class="p-3.5 text-[#fefae2]/80">${t.descripcion_condiciones || 'Sin observaciones'}</td>
+                <td class="p-3.5 text-center font-bold text-[#00e4fb]">#${t.id}</td>
+                <td class="p-3.5 font-extrabold text-sm text-[#eaecee]">${t.departamento_o_zona}</td>
+                <td class="p-3.5 text-right font-black text-[#00e4fb] text-sm">Bs. ${Number(t.costo_base_flete || 0).toFixed(2)}</td>
+                <td class="p-3.5 text-[#eaecee]/75">${t.descripcion_condiciones || 'Sin observaciones'}</td>
                 <td class="p-3.5 text-center">
                     <div class="flex items-center justify-center gap-1.5">
-                        <button onclick='abrirModalEditarTarifa(${JSON.stringify(t)})' class="px-2.5 py-1 bg-amber-600/80 hover:bg-amber-600 text-white rounded-lg font-bold transition">Editar</button>
-                        <button onclick="eliminarTarifa(${t.id})" class="px-2.5 py-1 bg-red-700/80 hover:bg-red-700 text-white rounded-lg font-bold transition">Eliminar</button>
+                        <button onclick='abrirModalEditarTarifa(${JSON.stringify(t)})' class="px-3 py-1.5 bg-amber-500/20 hover:bg-amber-500 text-amber-300 hover:text-[#12192a] border border-amber-500/40 rounded-xl font-bold transition cursor-pointer">Editar</button>
+                        <button onclick="eliminarTarifa(${t.id})" class="px-3 py-1.5 bg-rose-500/20 hover:bg-rose-500 text-rose-300 hover:text-white border border-rose-500/40 rounded-xl font-bold transition cursor-pointer">Eliminar</button>
                     </div>
                 </td>
             `;

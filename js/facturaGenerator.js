@@ -2,10 +2,21 @@
 
 async function generarFacturaPDF(cotizacionId) {
     try {
+        if (cotizacionId && typeof cotizacionId === 'object' && cotizacionId.id) {
+            cotizacionId = cotizacionId.id;
+        }
+
+        if (!cotizacionId || typeof cotizacionId === 'object') {
+            throw new Error(`ID de cotización inválido recibido: ${JSON.stringify(cotizacionId)}.`);
+        }
+
         const { jsPDF } = window.jspdf;
+        if (!jsPDF) {
+            throw new Error("jsPDF no está cargado en el objeto global window.");
+        }
         const doc = new jsPDF();
 
-        // 1. Obtener la cotización completa, datos del cliente y paquete (usando 'precio_base')
+        // 1. Obtener datos de Supabase
         const { data: cotizacion, error: errCot } = await supabaseClient
             .from('cotizaciones_service_euros')
             .select(`
@@ -17,19 +28,19 @@ async function generarFacturaPDF(cotizacionId) {
             .single();
 
         if (errCot) throw errCot;
+        if (!cotizacion) {
+            throw new Error(`No se encontró la cotización con ID: ${cotizacionId}`);
+        }
 
         let itemsParaTabla = [];
 
-        // 2. Comprobar si la cotización viene de un Paquete Preconfigurado o de Ítems Individuales
         if (cotizacion.paquete_id && cotizacion.paquetes_service_euros) {
-            // Si es un paquete, mostramos directamente el paquete completo como servicio único unificado
             itemsParaTabla.push({
                 nombre: `Paquete: ${cotizacion.paquetes_service_euros.nombre}${cotizacion.paquetes_service_euros.descripcion ? ' - ' + cotizacion.paquetes_service_euros.descripcion : ''}`,
                 cantidad: 1,
                 precio_unitario: cotizacion.subtotal
             });
         } else {
-            // Consultar ítems individuales añadidos a la cotización
             const { data: itemsInd, error: errItems } = await supabaseClient
                 .from('cotizacion_items_service_euros')
                 .select(`
@@ -50,7 +61,6 @@ async function generarFacturaPDF(cotizacionId) {
             }
         }
 
-        // Si la lista sigue vacía por alguna razón, agregamos una línea general
         if (itemsParaTabla.length === 0) {
             itemsParaTabla.push({
                 nombre: `Servicio de Evento: ${cotizacion.tipo_evento} (${cotizacion.departamento})`,
@@ -59,39 +69,35 @@ async function generarFacturaPDF(cotizacionId) {
             });
         }
 
-        // 3. Encabezado de la Factura con Logo ajustado a 30 de alto
-        const imgLogo = new Image();
-        imgLogo.src = 'assets/img/logo_visual.png';
-        
-imgLogo.onload = function() {
-    doc.addImage(imgLogo, 'PNG', 14, 10, 35, 30);
-    
-    // Coordenada X central entre el final del logo (49) y el margen derecho (196) -> 122.5
-    const centroX = 122.5;
+        // Construcción del documento PDF
+        const construirPDF = (imgData) => {
+            if (imgData) {
+                doc.addImage(imgData, 'PNG', 14, 10, 35, 30);
+            }
 
-    doc.setFont("helvetica", "bold");
-    doc.setFontSize(15);
-    doc.setTextColor(45, 8, 10); // #2d080a
-    // Bajamos el título principal a la posición Y = 20 (antes era 18)
-    doc.text("LOS EUROS DE BOLIVIA", centroX, 20, { align: 'center' });
-    
-    doc.setFontSize(9.5);
-    doc.setFont("helvetica", "normal");
-    doc.setTextColor(100, 100, 100);
-    // Bajamos el subtítulo a la posición Y = 27 (antes era 24) para darle más espacio con el título
-    doc.text("FACTURA DE COMPRA / SERVICIO - SONIDO EUROS", centroX, 27, { align: 'center' });
+            const centroX = 122.5;
 
-    doc.setDrawColor(164, 32, 46); // #a4202e
-    doc.setLineWidth(0.5);
-    doc.line(14, 44, 196, 44);
+            // Encabezado con color oscuro corporativo (#12192a -> RGB 18, 25, 42)
+            doc.setFont("helvetica", "bold");
+            doc.setFontSize(15);
+            doc.setTextColor(18, 25, 42); 
+            doc.text("VIRTUAL STUDIO BOLIVIA", centroX, 20, { align: 'center' });
 
+            doc.setFontSize(9.5);
+            doc.setFont("helvetica", "normal");
+            doc.setTextColor(100, 100, 100);
+            doc.text("FACTURA DE COMPRA / SERVICIO - VIRTUAL STUDIO", centroX, 27, { align: 'center' });
 
-            // 4. Información general y del cliente
+            // Línea divisoria en cyan (#00e4fb -> RGB 0, 228, 251)
+            doc.setDrawColor(0, 228, 251); 
+            doc.setLineWidth(0.8);
+            doc.line(14, 44, 196, 44);
+
             doc.setFontSize(9);
-            doc.setTextColor(45, 8, 10);
-            doc.text(`Factura N°: SE-${String(cotizacion.id).padStart(5, '0')}`, 14, 50);
+            doc.setTextColor(18, 25, 42);
+            doc.text(`Factura N°: VS-${String(cotizacion.id).padStart(5, '0')}`, 14, 50);
             doc.text(`Fecha de Emisión: ${new Date(cotizacion.created_at).toLocaleDateString()}`, 130, 50);
-            
+
             doc.text(`Tipo de Evento: ${cotizacion.tipo_evento} (${cotizacion.departamento})`, 14, 56);
             doc.text(`Fecha del Evento: ${cotizacion.fecha_evento} a las ${cotizacion.hora_inicio}`, 130, 56);
 
@@ -105,7 +111,6 @@ imgLogo.onload = function() {
 
             let startYTable = 84;
 
-            // 5. Mapeo de la tabla
             const tableRows = itemsParaTabla.map((item, index) => {
                 const totalItem = item.cantidad * item.precio_unitario;
                 return [
@@ -117,23 +122,26 @@ imgLogo.onload = function() {
                 ];
             });
 
+            if (typeof doc.autoTable !== 'function') {
+                throw new Error("El plugin autoTable de jsPDF no está disponible.");
+            }
+
             doc.autoTable({
                 startY: startYTable,
                 head: [['#', 'Descripción de Equipos / Servicios / Paquete', 'Cant.', 'P. Unitario (Bs.)', 'P. Total (Bs.)']],
                 body: tableRows,
-                headStyles: { fillColor: [164, 32, 46], textColor: [254, 250, 226] },
-                bodyStyles: { textColor: [45, 8, 10] },
+                headStyles: { fillColor: [18, 25, 42], textColor: [0, 228, 251] }, // Fondo oscuro con letras cyan
+                bodyStyles: { textColor: [18, 25, 42] },
                 theme: 'striped',
                 styles: { fontSize: 8.5 }
             });
 
-            // 6. Totales
             const finalY = doc.lastAutoTable.finalY + 10;
-            
+
             doc.setFont("helvetica", "normal");
             doc.setFontSize(9);
-            doc.setTextColor(45, 8, 10);
-            
+            doc.setTextColor(18, 25, 42);
+
             doc.text(`Subtotal:`, 130, finalY);
             doc.text(`Bs. ${parseFloat(cotizacion.subtotal).toFixed(2)}`, 196, finalY, { align: 'right' });
 
@@ -149,35 +157,47 @@ imgLogo.onload = function() {
 
             doc.setFont("helvetica", "bold");
             doc.setFontSize(11);
-            doc.setTextColor(164, 32, 46);
+            doc.setTextColor(18, 25, 42);
             doc.text(`TOTAL A PAGAR:`, 130, yTotal);
             doc.text(`Bs. ${parseFloat(cotizacion.precio_estimado_total).toFixed(2)}`, 196, yTotal, { align: 'right' });
 
-            doc.save(`Factura_SonidoEuros_${cotizacion.id}.pdf`);
+            doc.save(`Factura_VirtualStudio_${cotizacion.id}.pdf`);
         };
 
-        if (imgLogo.complete) {
-            imgLogo.onload();
+        const imgLogo = new Image();
+        imgLogo.src = 'assets/img/logo_visual.png'; 
+
+        imgLogo.onload = function() {
+            construirPDF(imgLogo);
+        };
+
+        imgLogo.onerror = function() {
+            console.warn("No se pudo cargar el logo, generando PDF sin logotipo.");
+            construirPDF(null); 
+        };
+
+        if (imgLogo.complete && imgLogo.naturalWidth !== 0) {
+            construirPDF(imgLogo);
         }
 
     } catch (error) {
         console.error("Error al generar el PDF de la factura:", error);
-        mostrarNotificacionFlotante("No se pudo generar la factura en este momento. Intente nuevamente.", "error");
+        mostrarNotificacionFlotante("No se pudo generar el comprobante en este momento. Intente nuevamente.", "error");
     }
 }
 
-// Función auxiliar para notificaciones modernas sin usar alert()
+// Notificación flotante adaptada al estilo de Virtual Studio
 function mostrarNotificacionFlotante(mensaje, tipo = 'error') {
     const alertaAnterior = document.getElementById('notificacion-flotante-euros');
     if (alertaAnterior) alertaAnterior.remove();
 
     const notificacion = document.createElement('div');
     notificacion.id = 'notificacion-flotante-euros';
-    notificacion.className = `fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-2xl text-white text-xs font-bold transition-all duration-300 flex items-center space-x-2 ${
-        tipo === 'error' ? 'bg-[#a4202e]' : 'bg-green-700'
+    notificacion.className = `fixed bottom-6 right-6 z-50 px-5 py-3 rounded-xl shadow-2xl text-xs font-bold transition-all duration-300 flex items-center space-x-2 border ${
+        tipo === 'error' ? 'bg-[#12192a] text-[#00e4fb] border-[#00e4fb]/40' : 'bg-emerald-900 text-emerald-200 border-emerald-500/40'
     }`;
     notificacion.innerHTML = `<span>${mensaje}</span>`;
-    
+
     document.body.appendChild(notificacion);
 
     setTimeout(() => {
